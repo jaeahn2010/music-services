@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs', {title: 'Greater Las Vegas Music Services'}) %>
+    <link rel="stylesheet" href="/styles/home.css">
+</head>
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+
+    <main>
+        <section>
+            <h1>Greater Las Vegas Music Services</h1>
+            <h4>&#40GLVMS&#41</h4>
+        </section>
+        <section class="headshot">
+            <img src="#"> <!--upload headshot here-->
+        </section>
+        <section>
+            <div>
+                <p>Welcome message goes here</p>
+            </div>
+            <div>
+                <a href="/about"><button>About GLVMS</button></a>
+                <a href="/opuses"><button>See Repertoire List</button></a>
+                <a href="client-request/new"><button>Make a Request</button></a>
+            </div>
+        </section>
+    </main>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+
+</html>
