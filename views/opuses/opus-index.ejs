@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs', {title: 'Available Repertoire List | GLVMS'}) %>
+    <link rel="stylesheet" href="/styles/opus-index.css">
+</head>
+<!--set up backend so that it can 1) grab value from selected main category options & reload the page w/ subcategories, and 2) grab value from selected subcategory options & reload the page w/ filtered results-->
+<!--poss solution: wrap both main-cat & sub-cat w/ <form>?-->
+<body>
+    <%- include('../partials/nav.ejs') %>
+    <section class='filters'>
+        <label for="main-category">Main category filter:</label>
+        <select id="main-category" name="main-category">
+            <option value="composer">Composer</option>
+            <option value="instrumentation">Instrumentation</option>
+        </select>
+        <label for="subcategory">Subcategory filter:</label>
+        <select id="subcategory" name="subcategory">
+            <% let subcategory = 'composer' %> <!--temp placeholder-->
+            <% if (subcategory === 'composer') { %>
+                <% for (opus of opuses) { %>
+                    <option value=<%= opus.composer %>><%= opus.composer %></option>
+                <% } %>
+            <% } else if (subcategory === 'instrumentation') { %>
+                <% let instrumentsList = ['bassoon/contrabassoon', 'cello', 'clarinet/bass clarinet', 'contrabass', 'flute/piccolo', 'guitar', 'harp', 'horn', 'oboe/english horn', 'percussion', 'piano', 'saxophone', 'trombone', 'trumpet', 'tuba/euphonium', 'viola', 'violin', 'voice']; %>
+                <% for (instrument of instrumentsList) { %>
+                    <option value=<%= instrument %>><%= instrument %></option>
+                <% } %>
+            <% } %>
+        </select>
+    </section>
+        <% for (opus of opuses) { %>
+            <section class="each-opus">
+                <form method="POST" action="/opuses/add-to-request">
+                    <input type="image" src="#" value="Add to Request"/>
+                </form>
+                <a class="opus-link" href="/opuses/<%= opus._id %>"
+                    <div><%= opus.composer %></div>
+                    <div><%= opus.title %></div>
+                    <div><%= opus.instrumentation %></div>
+                    <div><%= opus.price %></div>
+                </a>
+            </section>
+        <% } %>
+    <%- include('../partials/footer.ejs') %>
+</body>
+</html>

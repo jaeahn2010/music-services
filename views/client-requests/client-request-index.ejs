@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head.ejs', {title: 'GLVMS | Your Request'}) %>
+    <link rel="stylesheet" href="/styles/pet-index.css">
+</head>
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+
+    <section class="client-request-details">
+        <div>
+            <div class="fixed-details-left">
+                <p>Request made by</p>
+                <p><%= clientRequest.clientName %></p>
+                <p><%= clientRequest.clientInstrument %></p>
+            </div>
+            <div class="fixed-details-right">
+                <p>Event: <%= clientRequest.eventTitle %></p>
+                <p>Date & Time: <%= clientRequest.eventDate %></p>
+                <p>Location: <%= clientRequest.eventLocation %></p>
+            </div>
+        </div>
+    </section>
+    <section class="rep-list">
+        <% for (let rep of requestedRepertoire) { %>
+        <div>
+            <form method="POST" action="/client-requests/<%= rep._id %>?_method=DELETE"> <!--IMPORTANT: check here to ensure the rep is not deleted from the master list-->
+                <input type="image" class='red-x' src="#" alt="Submit"> <!--red X w/ transparent background-->
+            </form>
+            <p><%= rep.composer %>:</p>
+            <p><%= rep.title %></p>
+            <p>
+            <% for (let instrument of rep.instrumentation) { %>
+                <span>
+                    <%= instrument %>, 
+                </span>
+            <% } %>
+            </p>
+            <p>$ <%= rep.price %></p>
+        </div>
+        <% } %>
+    </section>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head.ejs', {title: `${opus.title} | GLVMS`}) %>
+    <link rel="stylesheet" href="/styles/opus-details.css">
+</head>
+
+<body>
+    <%- include('../partials/nav.ejs') %>
+
+    <section class="details-left">
+        <p><%= opus.title %></p>
+        <p><%= opus.composer %></p>
+        <p><%= opus.instrumentation %></p>
+        <p><%= opus.price %></p>
+        <p>
+        <% for (movement of opus.movements) { %>
+            <span>
+                <%= movement.title %>
+            </span>
+            <span>
+                <%= movement.price %>
+            </span>
+        <% } %>
+        </p>
+    </section>
+    <section class="details-middle">
+        <h3>Description</h3>
+        <p>
+            <% if (opus.description === '') { %>
+                None provided
+            <% } else  { %>
+                <%= opus.description %>
+            <% } %>
+        </p>
+    </section>
+    <section class="details-right">
+        <a href="/opuses/add-to-request"><button class='btn'>Add to Request</button></a>
+        <a href="/opuses"><button class='btn'>Go back to full repertoire list</button></a>
+    </section>
+
+    <%- include('../partials/footer.ejs') %>
+</body>
+
+</html>

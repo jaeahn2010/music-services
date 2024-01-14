@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head.ejs', {title: 'Add a New Request | GLVMS'}) %>
+    <link rel="stylesheet" href="/styles/client-request-new.css">
+</head>
+
+<body>
+    <%- include('../partials/nav.ejs') %>
+
+    <h2>Add a New Request</h2>
+    <form method="POST" action="/client-requests/new">
+        <div>
+            <label for="clientName">Your Name:</label>
+            <input type="text" id="clientName" name="clientName" required>
+        </div>
+        <div>
+            <label for="clientInstrument">Your Instrument:</label>
+            <input type="text" id="clientInstrument" name="clientInstrument" required>
+        </div>
+        <div>
+            <label for="eventTitle">Event Title:</label>
+            <input type="text" id="eventTitle" name="eventTitle" required>
+        </div>
+        <div>
+            <label for="eventDate">Date & Time:</label>
+            <input type="date" id="eventDate" name="eventDate" required>
+        </div>
+        <div>
+            <label for="eventLocation">Location:</label>
+            <input type="text" id="eventLocation" name="eventLocation" required>
+        </div>
+        <div>
+            <label for="requestedRepertoire">Select Repertoire:</label>
+            <input type="text" id="requestedRepertoire" name="requestedRepertoire" required>
+            <!--fix^; needs to be either a dropdown menu or a list of what client has chosen-->
+        </div>
+        <div>
+            <input id='submit-btn' type="submit" value="Submit Request">
+        </div>
+    </form>
+
+    <%- include('../partials/footer.ejs') %>
+</body>
+
+</html>
