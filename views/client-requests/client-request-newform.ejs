@@ -10,7 +10,7 @@
     <%- include('../partials/nav.ejs') %>
 
     <h2>Add a New Request</h2>
-    <form method="POST" action="/client-requests/new">
+    <form method="POST" action="/client-requests">
         <div>
             <label for="clientName">Your Name:</label>
             <input type="text" id="clientName" name="clientName" required>
@@ -32,12 +32,13 @@
             <input type="text" id="eventLocation" name="eventLocation" required>
         </div>
         <div>
-            <label for="requestedRepertoire">Select Repertoire:</label>
-            <input type="text" id="requestedRepertoire" name="requestedRepertoire" required>
-            <!--fix^; needs to be either a dropdown menu or a list of what client has chosen-->
+            <input type="text" id="requestedRepertoire.title" name="requestedRepertoire.0.title" required>
+            <input type="text" id="requestedRepertoire.composer" name="requestedRepertoire.0.composer" required>
+            <input type="text" id="requestedRepertoire.instrumentation" name="requestedRepertoire.0.instrumentation" required>
+            <input type="number" id="requestedRepertoire.price" name="requestedRepertoire.0.price" required>
         </div>
         <div>
-            <input id='submit-btn' type="submit" value="Submit Request">
+            <input type="submit" id='submit-btn' value="Submit Request">
         </div>
     </form>
 

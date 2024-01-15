@@ -1,85 +1,121 @@
-const clientRequests = [
+const opuses = [
     {
-        clientName: "testClient1",
-        clientInstrument: "testInstrument1",
-        eventTitle: "testEvent1",
-        eventDate: "2024-01-01 19:30",
-        eventLocation: "testEventLocation1",
-        comments: "testComment1"
+        title: "Piano Sonata No. 1 in F minor, Op. 2, No. 1",
+        composer: "Beethoven, Ludwig van",
+        movements: [
+            {movementTitle: "I. Allegro", price: 30},
+            {movementTitle: "II. Adagio", price: 30},
+            {movementTitle: "III. Menuetto. Allegretto", price: 30},
+            {movementTitle: "IV. Prestissimo", price: 90}
+        ],
+        instrumentation: ["piano"],
+        price: 175
     },
     {
-        clientName: "testClient2",
-        clientInstrument: "testInstrument2",
-        eventTitle: "testEvent2",
-        eventDate: "2024-01-02 19:30",
-        eventLocation: "testEventLocation2",
-        comments: "testComment2"
-    },    
+        title: "Sonata No. 2 in E-flat major for Clarinet and Piano, Op. 120, No. 2",
+        composer: "Brahms, Johannes",
+        movements: [
+            {movementTitle: "I. Allegro amabile", price: 75},
+            {movementTitle: "II. Allegro appassionato", price: 75},
+            {movementTitle: "III. Andante con moto", price: 60}
+        ],
+        instrumentation: ["clarinet", "viola", "piano"],
+        price: 175
+    },
     {
-        clientName: "testClient3",
-        clientInstrument: "testInstrument3",
-        eventTitle: "testEvent3",
-        eventDate: "2024-01-03 19:30",
-        eventLocation: "testEventLocation3",
-        comments: "testComment3"
-    },    
+        title: "Scherzo No. 2 in B-flat major, Op. 31",
+        composer: "Chopin, Frederic",
+        instrumentation: ["piano"],
+        price: 240
+    },
     {
-        clientName: "testClient4",
-        clientInstrument: "testInstrument4",
-        eventTitle: "testEvent4",
-        eventDate: "2024-01-04 19:30",
-        eventLocation: "testEventLocation4",
-        comments: "testComment4"
-    },    
+        title: "Fêtes galantes",
+        composer: "Debussy, Claude",
+        movements: [
+            {movementTitle: "I. En sourdine", price: 30},
+            {movementTitle: "II. Clair de lune", price: 30},
+            {movementTitle: "III. Fantoches", price: 45}
+        ],
+        instrumentation: ["voice", "piano"],
+        price: 90
+    },
     {
-        clientName: "testClient5",
-        clientInstrument: "testInstrument5",
-        eventTitle: "testEvent5",
-        eventDate: "2024-01-05 19:30",
-        eventLocation: "testEventLocation5",
-        comments: "testComment5"
-    },    
+        title: "Concerto in B minor for Cello and Orchestra, Op. 104",
+        composer: "Dvorák, Antonin",
+        movements: [
+            {movementTitle: "I. Allegro", price: 90},
+            {movementTitle: "II. Adagio ma non troppo", price: 60},
+            {movementTitle: "III. Allegro moderato", price: 90}
+        ],
+        instrumentation: ["cello", "orchestra"],
+        price: 225
+    },
     {
-        clientName: "testClient6",
-        clientInstrument: "testInstrument6",
-        eventTitle: "testEvent6",
-        eventDate: "2024-01-06 19:30",
-        eventLocation: "testEventLocation6",
-        comments: "testComment6"
-    },    
+        title: "Totentanz (arr. Ahn-Benton)",
+        composer: "Liszt, Franz",
+        instrumentation: ["piano"],
+        price: 300
+    },
     {
-        clientName: "testClient7",
-        clientInstrument: "testInstrument7",
-        eventTitle: "testEvent7",
-        eventDate: "2024-01-07 19:30",
-        eventLocation: "testEventLocation7",
-        comments: "testComment7"
-    },    
+        title: "Trio No. 1 in D minor for Violin, Cello, and Piano, Op. 49",
+        composer: "Mendelssohn, Felix",
+        movements: [
+            {movementTitle: "I. Molto allegro ed agitato", price: 90},
+            {movementTitle: "II. Andante con moto tranquillo", price: 45},
+            {movementTitle: "III. Scherzo. Leggiero e vivace", price: 90},
+            {movementTitle: "IV. Finale. Allegro assai appassionato", price: 90}
+        ],
+        instrumentation: ["piano", "violin", "cello"],
+        price: 300
+    },
     {
-        clientName: "testClient8",
-        clientInstrument: "testInstrument8",
-        eventTitle: "testEvent8",
-        eventDate: "2024-01-08 19:30",
-        eventLocation: "testEventLocation8",
-        comments: "testComment8"
-    },    
+        title: "Don Giovanni, K. 527",
+        composer: "Mozart, Wolfgang Amadeus",
+        movements: [
+            {movementTitle: "Madamina", price: 30},
+            {movementTitle: "Ho capito", price: 20},
+            {movementTitle: "Là ci darem la mano", price: 15},
+            {movementTitle: "Ah fuggi il traditor", price: 20},
+            {movementTitle: "Or sai, chi l'onore", price: 20},
+            {movementTitle: "Dalla sua pace", price: 15},
+            {movementTitle: "Finch'han dal vino", price: 20},
+            {movementTitle: "Batti, batti o bel Masetto", price: 30},
+            {movementTitle: "Deh, vieni alla finestra", price: 15},
+            {movementTitle: "Vedrai, carino", price: 15},
+            {movementTitle: "Il mio tesoro intanto", price: 20},
+            {movementTitle: "Mi tradì quell'alma ingrata", price: 20},
+            {movementTitle: "Non mi dir", price: 20}
+        ],
+        instrumentation: ["voice", "orchestra"],
+        price: 400
+    },
     {
-        clientName: "testClient9",
-        clientInstrument: "testInstrument9",
-        eventTitle: "testEvent9",
-        eventDate: "2024-01-09 19:30",
-        eventLocation: "testEventLocation9",
-        comments: "testComment1"
-    },    
+        title: "Sextet for Flute, Oboe, Clarinet, Bassoon, Horn, and Piano",
+        composer: "Poulenc, Francis",
+        movements: [
+            {movementTitle: "I. Très vite et emporté", price: 90},
+            {movementTitle: "II. Divertissement. Andantino", price: 60},
+            {movementTitle: "III. Finale. Prestissimo", price: 120}
+        ],
+        instrumentation: ["flute", "oboe", "clarinet", "bassoon", "horn", "piano"],
+        price: 250
+    },
     {
-        clientName: "testClient10",
-        clientInstrument: "testInstrument10",
-        eventTitle: "testEvent10",
-        eventDate: "2024-01-10 19:30",
-        eventLocation: "testEventLocation10",
-        comments: "testComment10"
+        title: "4 Pieces, Op. 4",
+        composer: "Prokofiev, Sergei",
+        movements: [
+            {movementTitle: "IV. Suggestion diabolique", price: 150}
+        ],
+        instrumentation: ["piano"],
+        price: 300
+    },
+    {
+        title: "Остров мертвых (Isle of the Dead), Op. 29 (arr. Kirkor)",
+        composer: "Rachmaninov, Sergei",
+        instrumentation: ["orchestra"],
+        price: 420
     }
 ]
 
-//export seed data to 'models/index.js'
-module.exports = clientRequests;
+//seed data -> models/index.js
+module.exports = opuses;

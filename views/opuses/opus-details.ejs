@@ -13,30 +13,28 @@
         <p><%= opus.title %></p>
         <p><%= opus.composer %></p>
         <p><%= opus.instrumentation %></p>
-        <p><%= opus.price %></p>
+        <p>$<%= opus.price %></p>
         <p>
         <% for (movement of opus.movements) { %>
             <span>
-                <%= movement.title %>
+                <%= movement.movementTitle %>
             </span>
             <span>
-                <%= movement.price %>
+                $<%= movement.price %>
             </span>
         <% } %>
         </p>
     </section>
     <section class="details-middle">
         <h3>Description</h3>
-        <p>
-            <% if (opus.description === '') { %>
-                None provided
-            <% } else  { %>
-                <%= opus.description %>
-            <% } %>
-        </p>
+        <% if (opus.description === '') { %>
+            <p>None provided</p>
+        <% } else  { %>
+            <p><%= opus.description %></p>
+        <% } %>
     </section>
     <section class="details-right">
-        <a href="/opuses/add-to-request"><button class='btn'>Add to Request</button></a>
+        <a href="/opuses/<%= opus._id %>/add-to-request"><button class='btn'>Add to Request</button></a>
         <a href="/opuses"><button class='btn'>Go back to full repertoire list</button></a>
     </section>
 

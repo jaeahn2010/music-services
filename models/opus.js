@@ -5,10 +5,22 @@ const mongoose = require('mongoose');
 const opusSchema = new mongoose.Schema({
     title: {type: String, required: true},
     composer: {type: String, required: true},
-    movements: [{type: String}, {type: Number}],
+    movements: [
+        new mongoose.Schema( {
+            movementTitle: {type: String},
+            price: {type: Number}
+        })
+    ],
     instrumentation: [{type: String, required: true}],
-    price: {type: Number, required: true}
+    price: {type: Number, required: true},
+    //testing reference in place of embedding below
+    // requests: [
+    //     {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: "ClientRequest"
+    //     }
+    // ]
 })
 
-//export schema as mongoose model, accessed in 'models/index.js'
-module.exports = mongoose.model('Opus', opusSchema);
+//schema -> 'models/index.js'
+module.exports = mongoose.model('Opus', opusSchema)
