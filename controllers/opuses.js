@@ -10,10 +10,18 @@ const opusSchema = require('../models/opus')
 //idx rt: all opuses
 router.get('/', function (req, res) {
     db.Opus.find({})
-        .then(opuses => res.render('opuses/opus-index', { 
+        .then(opuses => {
+            let fullComposersList = [];
+            for (opus of opuses) {
+                fullComposersList.push(opus.composer);
+            }
+            fullComposersList.sort();
+            res.render('opuses/opus-index', {
             opuses: opuses,
-            selectedMainCategory: "none"
-        }))
+            composersSorted: false,
+            fullComposersList: fullComposersList
+        })
+    })
 })
 
 //create rt:
@@ -22,15 +30,24 @@ router.post('/', (req, res) => {
         .then(opus => res.redirect('/opuses/' + opus._id))
 })
 
-//show rt: disp all opuses w/ spec filter
-router.get('/filter/:category', function (req, res) {
+//show rt: index w/ filters
+router.get('/filter/:composer/:instrumentation', function (req, res) {
     db.Opus.find({})
+    .then(opuses => {
+        let fullComposersList = [];
+        for (opus of opuses) {
+            fullComposersList.push(opus.composer);
+        }
+        fullComposersList.sort();
+        db.Opus.find( { $and: [ { composer: req.params.composer }, { instrumentation: { $elemMatch: { $eq: req.params.instrumentation } } } ] } )
         .then(opuses => {
             res.render('opuses/opus-index', { 
                 opuses: opuses,
-                selectedMainCategory: req.params.category
+                composersSorted: true,
+                fullComposersList: fullComposersList
             })
         })
+    })
 })
 
 //new rt: form to be filled to create new opus

@@ -4,79 +4,69 @@
     <%- include('../partials/head.ejs', {title: 'Available Repertoire List | GLVMS'}) %>
     <link rel="stylesheet" href="/styles/opus-index.css">
 </head>
-<!--set up backend so that it can 1) grab value from selected main category options & reload the page w/ subcategories, and 2) grab value from selected subcategory options & reload the page w/ filtered results-->
-<!--poss solution: wrap both main-cat & sub-cat w/ <form>?-->
 <body>
     <%- include('../partials/nav.ejs') %>
     <h2 class="opus-index-title">Available Repertoire</h2>
     <section class='filters'>
-        <label for="main-category">Main category filter:</label>
-        <select id="main-category" name="main-category">
-            <option value="choose-category" selected disabled>Choose a category</option>
-            <option value="composer">Composer</option>
-            <option value="instrumentation">Instrumentation</option>
-        </select>
-        <button id="select-btn">Select</button>
-        <script>
-            let mainCategory = document.getElementById('main-category');
-            let selectBtn = document.getElementById('select-btn');
-            selectBtn.addEventListener('click', () => {
-                let category = mainCategory.options[mainCategory.selectedIndex].value;
-                if (category === "composer" || category === "instrumentation") {
-                    window.open(`http://localhost:3000/opuses/filter/${category}`, "_self");
-                }
-            })
-        </script>
-        <label for="subcategory">Subcategory filter:</label>
-        <select id="subcategory" name="subcategory">
-            <% if (selectedMainCategory === 'composer') { %>
-                <% let sortedComposers = [] %>
-                <% for (opus of opuses) { %>
-                    <% if (!sortedComposers.includes(opus.composer)) { %>
-                        <% sortedComposers.push(opus.composer) %>
-                    <% } %>
-                <% } %>
-                <% sortedComposers.sort() %>
-                <% for (composer of sortedComposers) { %>
-                    <option value=<%= composer %>><%= composer %></option>
-                <% } %>
-            <% } else if (selectedMainCategory === 'instrumentation') { %>
-                <% let instrumentsList = ['bassoon/contrabassoon', 'cello', 'clarinet/bass clarinet', 'contrabass', 'flute/piccolo', 'guitar', 'harp', 'horn', 'oboe/english horn', 'percussion', 'piano', 'saxophone', 'trombone', 'trumpet', 'tuba/euphonium', 'viola', 'violin', 'voice']; %>
+        <div>
+            <label for="composer-filter">Filter by composer:</label>
+            <select id="composer-filter" name="composer-filter">
+            <% for (composer of fullComposersList) { %>
+                <option value=<%= composer %>><%= composer %></option>
+            <% } %>
+            </select>
+            <label for="instrumentation-filter">Filter by instrumentation:</label>
+            <select id="instrumentation-filter" name="instrumentation-filter">
+                <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'contrabass', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
                 <% for (instrument of instrumentsList) { %>
                     <option value=<%= instrument %>><%= instrument %></option>
                 <% } %>
-            <% } %>
-        </select>
+            </select>
+        </div>
+        <div>
+            <button id="apply-filters">Apply</button>
+            <script>
+                let composerFilter = document.getElementById('composer-filter');
+                let instrumentationFilter = document.getElementById('instrumentation-filter');
+                let applyFilters = document.getElementById('apply-filters');
+                applyFilters.addEventListener('click', () => {
+                    let chosenComposer = composerFilter.options[composerFilter.selectedIndex].value;
+                    let chosenInstrumentation = instrumentationFilter.options[instrumentationFilter.selectedIndex].value;
+                    window.open(`http://localhost:3000/opuses/filter/${chosenComposer}/${chosenInstrumentation}`, "_self");
+                })
+            </script>
+        </div>
     </section>
-        <% for (opus of opuses) { %>
-            <section class="each-opus">
-                <form method="POST" action="/opuses/add-to-request">
-                    <input type="image" src="#" value="Add to Request"/>
-                </form>
-                <a class="opus-link" href="/opuses/<%= opus._id %>">
-                    <div><%= opus.composer %></div>
-                    <div><%= opus.title %></div>
-                    <div><%= opus.instrumentation %></div>
-                </a>
-                <% if (opus.movements.length > 0) { %>
-                    <button id="movements-button">See individual movements</button>
+
+    <% for (opus of opuses) { %>
+        <section class="each-opus">
+            <form method="POST" action="/opuses/add-to-request">
+                <input type="image" src="#" value="Add to Request"/>
+            </form>
+            <a class="opus-link" href="/opuses/<%= opus._id %>">
+                <div><%= opus.composer %></div>
+                <div><%= opus.title %></div>
+                <div><%= opus.instrumentation %></div>
+            </a>
+            <% if (opus.movements.length > 0) { %>
+                <button id="movements-button">See individual movements</button>
+            <% } %>
+            <div>
+                <% for (movement of opus.movements) { %>
+                    <form method="POST" action="/opuses/add-to-request">
+                        <input type="image" src="#" value="Add to Request"/>
+                    </form>
+                    <span>
+                        <%= movement.movementTitle %>
+                    </span>
+                    <span>
+                        $<%= movement.price %>
+                    </span>
                 <% } %>
-                <div>
-                    <% for (movement of opus.movements) { %>
-                        <form method="POST" action="/opuses/add-to-request">
-                            <input type="image" src="#" value="Add to Request"/>
-                        </form>
-                        <span>
-                            <%= movement.movementTitle %>
-                        </span>
-                        <span>
-                            $<%= movement.price %>
-                        </span>
-                    <% } %>
-                </div>
-                <div>$<%= opus.price %></div>
-            </section>
-        <% } %>
+            </div>
+            <div>$<%= opus.price %></div>
+        </section>
+    <% } %>
     <%- include('../partials/footer.ejs') %>
 </body>
 </html>

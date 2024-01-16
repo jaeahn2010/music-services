@@ -1,7 +1,7 @@
 const opuses = [
     {
         title: "Piano Sonata No. 1 in F minor, Op. 2, No. 1",
-        composer: "Beethoven, Ludwig van",
+        composer: "Beethoven-Ludwig-van",
         movements: [
             {movementTitle: "I. Allegro", price: 30},
             {movementTitle: "II. Adagio", price: 30},
@@ -13,7 +13,7 @@ const opuses = [
     },
     {
         title: "Sonata No. 2 in E-flat major for Clarinet and Piano, Op. 120, No. 2",
-        composer: "Brahms, Johannes",
+        composer: "Brahms-Johannes",
         movements: [
             {movementTitle: "I. Allegro amabile", price: 75},
             {movementTitle: "II. Allegro appassionato", price: 75},
@@ -24,13 +24,14 @@ const opuses = [
     },
     {
         title: "Scherzo No. 2 in B-flat major, Op. 31",
-        composer: "Chopin, Frederic",
+        composer: "Chopin-Frederic",
+        movements: [],
         instrumentation: ["piano"],
         price: 240
     },
     {
         title: "Fêtes galantes",
-        composer: "Debussy, Claude",
+        composer: "Debussy-Claude",
         movements: [
             {movementTitle: "I. En sourdine", price: 30},
             {movementTitle: "II. Clair de lune", price: 30},
@@ -41,7 +42,7 @@ const opuses = [
     },
     {
         title: "Concerto in B minor for Cello and Orchestra, Op. 104",
-        composer: "Dvorák, Antonin",
+        composer: "Dvorák-Antonin",
         movements: [
             {movementTitle: "I. Allegro", price: 90},
             {movementTitle: "II. Adagio ma non troppo", price: 60},
@@ -52,13 +53,14 @@ const opuses = [
     },
     {
         title: "Totentanz (arr. Ahn-Benton)",
-        composer: "Liszt, Franz",
+        composer: "Liszt-Franz",
+        movements: [],
         instrumentation: ["piano"],
         price: 300
     },
     {
         title: "Trio No. 1 in D minor for Violin, Cello, and Piano, Op. 49",
-        composer: "Mendelssohn, Felix",
+        composer: "Mendelssohn-Felix",
         movements: [
             {movementTitle: "I. Molto allegro ed agitato", price: 90},
             {movementTitle: "II. Andante con moto tranquillo", price: 45},
@@ -70,7 +72,7 @@ const opuses = [
     },
     {
         title: "Don Giovanni, K. 527",
-        composer: "Mozart, Wolfgang Amadeus",
+        composer: "Mozart-Wolfgang-Amadeus",
         movements: [
             {movementTitle: "Madamina", price: 30},
             {movementTitle: "Ho capito", price: 20},
@@ -91,7 +93,7 @@ const opuses = [
     },
     {
         title: "Sextet for Flute, Oboe, Clarinet, Bassoon, Horn, and Piano",
-        composer: "Poulenc, Francis",
+        composer: "Poulenc-Francis",
         movements: [
             {movementTitle: "I. Très vite et emporté", price: 90},
             {movementTitle: "II. Divertissement. Andantino", price: 60},
@@ -102,7 +104,7 @@ const opuses = [
     },
     {
         title: "4 Pieces, Op. 4",
-        composer: "Prokofiev, Sergei",
+        composer: "Prokofiev-Sergei",
         movements: [
             {movementTitle: "IV. Suggestion diabolique", price: 150}
         ],
@@ -111,7 +113,8 @@ const opuses = [
     },
     {
         title: "Остров мертвых (Isle of the Dead), Op. 29 (arr. Kirkor)",
-        composer: "Rachmaninov, Sergei",
+        composer: "Rachmaninov-Sergei",
+        movements: [],
         instrumentation: ["orchestra"],
         price: 420
     }
