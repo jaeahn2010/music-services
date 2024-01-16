@@ -10,7 +10,10 @@ const opusSchema = require('../models/opus')
 //idx rt: all opuses
 router.get('/', function (req, res) {
     db.Opus.find({})
-        .then(opuses => res.render('opuses/opus-index', { opuses: opuses }))
+        .then(opuses => res.render('opuses/opus-index', { 
+            opuses: opuses,
+            selectedMainCategory: "none"
+        }))
 })
 
 //create rt:
@@ -21,8 +24,13 @@ router.post('/', (req, res) => {
 
 //show rt: disp all opuses w/ spec filter
 router.get('/filter/:category', function (req, res) {
-    db.Opus.find( { category: req.params.category} )
-        .then(opuses => res.render('opuses/opus-index', { opuses: opuses }))
+    db.Opus.find({})
+        .then(opuses => {
+            res.render('opuses/opus-index', { 
+                opuses: opuses,
+                selectedMainCategory: req.params.category
+            })
+        })
 })
 
 //new rt: form to be filled to create new opus

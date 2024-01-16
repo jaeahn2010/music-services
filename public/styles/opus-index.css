@@ -1,0 +1,13 @@
+.opus-index-title {
+    text-align: center;
+}
+
+.filters {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.each-opus {
+    border: 1px solid black;
+    display: flex;
+}
