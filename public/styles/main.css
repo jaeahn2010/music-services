@@ -2,8 +2,16 @@
     font-family: "Optima", sans-serif;
 }
 
-.glvms-title, footer h2 {
+.glvms-title, footer {
     text-align: center;
+}
+
+.admin-link {
+    font-size: 10px;
+}
+
+.admin-link p {
+    margin: 0;
 }
 
 nav {
@@ -12,4 +20,8 @@ nav {
 
 nav a {
     margin: 10vw;
+}
+
+footer nav {
+    margin-bottom: 50px;
 }

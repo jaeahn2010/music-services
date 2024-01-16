@@ -17,7 +17,7 @@
             </select>
             <label for="instrumentation-filter">Filter by instrumentation:</label>
             <select id="instrumentation-filter" name="instrumentation-filter">
-                <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'contrabass', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
+                <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
                 <% for (instrument of instrumentsList) { %>
                     <option value=<%= instrument %>><%= instrument %></option>
                 <% } %>
@@ -35,6 +35,7 @@
                     window.open(`http://localhost:3000/opuses/filter/${chosenComposer}/${chosenInstrumentation}`, "_self");
                 })
             </script>
+            <a id="filter-reset" href="/opuses">Reset filters</a>
         </div>
     </section>
 

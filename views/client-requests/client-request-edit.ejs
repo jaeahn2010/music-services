@@ -10,7 +10,7 @@
     <%- include('../partials/nav.ejs') %>
 
     <h2>Edit Your Request</h2>
-    <form method="POST" action="/client-requests/edit">
+    <form method="POST" action="/client-requests/<%= clientRequest._id %>?_method=PUT">
         <div>
             <label for="clientName">Your Name:</label>
             <input type="text" id="clientName" name="clientName" value= <%= clientRequest.clientName %> required>
@@ -31,13 +31,13 @@
             <label for="eventLocation">Location:</label>
             <input type="text" id="eventLocation" name="eventLocation" value= <%= clientRequest.eventLocation %>  required>
         </div>
+        <!-- <div>
+            <label for="requestedRepertoire">Your Requested Repertoire:</label>
+            <input type="text" id="requestedRepertoire" name="requestedRepertoire" value= <%# clientRequest.requestedRepertoire %>  required>
+            fix^; needs to be either a dropdown menu or a list of what client has chosen-->
+        <!-- </div> -->
         <div>
-            <label for="requestedRepertoire">Select Repertoire:</label>
-            <input type="text" id="requestedRepertoire" name="requestedRepertoire" value= <%= clientRequest.requestedRepertoire %>  required>
-            <!--fix^; needs to be either a dropdown menu or a list of what client has chosen-->
-        </div>
-        <div>
-            <input id='submit-btn' type="submit" value="Submit Request">
+            <input id='submit-btn' type="submit" value="Submit Revised Request">
         </div>
     </form>
 

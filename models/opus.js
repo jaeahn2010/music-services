@@ -5,21 +5,22 @@ const mongoose = require('mongoose');
 const opusSchema = new mongoose.Schema({
     title: {type: String, required: true},
     composer: {type: String, required: true},
-    movements: [
-        new mongoose.Schema( {
+    // movements: [
+    //     new mongoose.Schema( {
+    //         movementTitle: {type: String},
+    //         movementPrice: {type: Number}
+    //     })
+    // ],
+    movements: [{
+        type: Object,
+        schema: {
             movementTitle: {type: String},
-            price: {type: Number}
-        })
-    ],
+            movementPrice: {type: Number}
+        }
+    }],
     instrumentation: [{type: String, required: true}],
     price: {type: Number, required: true},
-    //testing reference in place of embedding below
-    // requests: [
-    //     {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: "ClientRequest"
-    //     }
-    // ]
+    description: {type: String}
 })
 
 //schema -> 'models/index.js'

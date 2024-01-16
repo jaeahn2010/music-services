@@ -44,6 +44,10 @@
                 </div>
                 <% } %>
             </section>
+            <button><a href="/client-requests/<%= clientRequest._id %>/edit">Edit this Request</a></button>
+            <form method="POST" action="/client-requests/<%= clientRequest._id %>?_method=DELETE">
+                <input type="submit" value="Delete this Request"/>
+            </form>
         <% } %>
     <% } %>
     <%- include('../partials/footer.ejs') %>

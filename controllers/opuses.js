@@ -51,9 +51,8 @@ router.get('/filter/:composer/:instrumentation', function (req, res) {
 })
 
 //new rt: form to be filled to create new opus
-router.get('/new/:id', (req, res) => {
-    db.Opus.findById(req.params.id)
-        .then(opus => res.render('opuses/opus-newform', { opus : opus }))
+router.get('/new', (req, res) => {
+    res.render('opuses/opus-newform')
 })
 
 //show rt: spec opus

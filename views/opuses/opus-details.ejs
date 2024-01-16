@@ -37,7 +37,10 @@
         <a href="/opuses/<%= opus._id %>/add-to-request"><button class='btn'>Add to Request</button></a>
         <a href="/opuses"><button class='btn'>Go back to full repertoire list</button></a>
     </section>
-
+    <button><a href="/opuses/<%= opus._id %>/edit">Edit this Repertoire</a></button>
+    <form method="POST" action="/opuses/<%= opus._id %>?_method=DELETE">
+        <input type="submit" value="Delete this Repertoire"/>
+    </form>
     <%- include('../partials/footer.ejs') %>
 </body>
 

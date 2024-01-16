@@ -10,7 +10,7 @@
     <%- include('../partials/nav.ejs') %>
 
     <h2>Add New Repertoire</h2>
-    <form method="POST" action="/opuses">
+    <form id="add-repertoire-form" method="POST" action="/opuses">
         <div>
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" required>
@@ -20,21 +20,51 @@
             <input type="text" id="composer" name="composer" required>
         </div>
         <div>
-            <label for="instrumentation">Instrumentation: $</label>
-            <input type="text" id="instrumentation" name="instrumentation" min=0 required>
-            <!--make this a radio button choice?-->
+            <label for="instrumentation">Instrumentation (select all that apply):</label><br>
+            <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
+            <% for (instrument of instrumentsList) { %>
+                <input type="checkbox" id="<%= instrument %>" name="<%= instrument %>" value="<%= instrument %>">
+                <label for="<%= instrument %>"> <%= instrument %></label><br>
+            <% } %>
         </div>
         <div>
-            <label for="price">Price:</label>
+            <label for="price">Price: $</label>
             <input type="number" id="price" name="price" min=0 required>
         </div>
         <div>
             <label for="description">Description:</label>
-            <textarea id="description" name="description" required></textarea>
+            <textarea id="description" name="description"></textarea>
         </div>
-        <!--add movement button here w/ delete button for each-->
+        <button type="button" id="add-movement-btn">Add a movement</button>
+        <script>
+            const addRepertoireForm = document.getElementById('add-repertoire-form');
+            const addMovementBtn = document.getElementById('add-movement-btn');
+            addMovementBtn.addEventListener('click', () => {
+                const div = document.createElement('div');
+                document.body.appendChild(div);
+                const mvmtTitleLabel = document.createElement('label');
+                mvmtTitleLabel.htmlFor = 'movements.movementTitle'
+                mvmtTitleLabel.innerText = 'Title: '
+                div.appendChild(mvmtTitleLabel);
+                const mvmtTitleInput = document.createElement('input');
+                mvmtTitleInput.setAttribute('type', 'text');
+                mvmtTitleInput.id = 'movements.movementTitle';
+                mvmtTitleInput.setAttribute('name', 'movements.movementTitle');
+                mvmtTitleLabel.appendChild(mvmtTitleInput);
+                const mvmtPriceLabel = document.createElement('label');
+                mvmtPriceLabel.htmlFor = 'movements.movementPrice'
+                mvmtPriceLabel.innerText = 'Price: $'
+                div.appendChild(mvmtPriceLabel);
+                const mvmtPriceInput = document.createElement('input');
+                mvmtPriceInput.setAttribute('type', 'number');
+                mvmtPriceInput.id = 'movements.movementPrice';
+                mvmtPriceInput.setAttribute('name', 'movements.movementPrice');
+                mvmtPriceInput.setAttribute('min', 0);
+                mvmtPriceLabel.appendChild(mvmtPriceInput);
+            })
+        </script>
         <div>
-            <input id='submit-btn' type="submit" value="Add Product">
+            <input id='submit-btn' type="submit" value="Add Repertoire">
         </div>
     </form>
 

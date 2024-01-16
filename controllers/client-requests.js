@@ -34,7 +34,7 @@ router.get('/:id', function (req, res) {
 //update rt (PUT/Update): receive PUT req from edit rt, edit spec req doc w/ form data, redirect to show pg of updated req
 router.put('/:id', (req, res) => {
     db.ClientRequest.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        .then(clientRequest => res.redirect('/client-requests/' + clientRequest._id))
+        .then(() => res.redirect('/client-requests'))
 })
 
 //destroy rt (DELETE/Delete): del req doc w/ url param
