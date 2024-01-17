@@ -6,11 +6,14 @@ const router = express.Router()
 const db = require('../models')
 const opusSchema = require('../models/opus')
 
+let requestedRepertoire = [];
+
 //all rts
-//idx rt: all opuses
+//idx rt: all opuses, no reqs yet made
 router.get('/', function (req, res) {
     db.Opus.find({})
         .then(opuses => {
+            //to fill filter menu on opus-idx pg
             let fullComposersList = [];
             for (opus of opuses) {
                 if (!fullComposersList.includes(opus.composer)) {
@@ -18,10 +21,11 @@ router.get('/', function (req, res) {
                 }
             }
             fullComposersList.sort();
+            //go to opus-idx w/ all opuses, composersList for filter, no client reqs yet
             res.render('opuses/opus-index', {
             opuses: opuses,
-            composersSorted: false,
-            fullComposersList: fullComposersList
+            fullComposersList: fullComposersList,
+            requestMade: 'no'
         })
     })
 })
@@ -46,7 +50,6 @@ router.get('/filter/:composer/:instrumentation', function (req, res) {
             .then(opuses => {
                 res.render('opuses/opus-index', { 
                     opuses: opuses,
-                    composersSorted: true,
                     fullComposersList: fullComposersList
                 })
             })
@@ -55,7 +58,6 @@ router.get('/filter/:composer/:instrumentation', function (req, res) {
             .then(opuses => {
                 res.render('opuses/opus-index', { 
                     opuses: opuses,
-                    composersSorted: true,
                     fullComposersList: fullComposersList
                 })
             })
@@ -64,7 +66,6 @@ router.get('/filter/:composer/:instrumentation', function (req, res) {
             .then(opuses => {
                 res.render('opuses/opus-index', { 
                     opuses: opuses,
-                    composersSorted: true,
                     fullComposersList: fullComposersList
                 })
             })
@@ -102,13 +103,86 @@ router.get('/:id/edit', (req, res) => {
         .then(opus => res.render('opuses/opus-edit', { opus: opus }))
 })
 
-//update rt: get PUT req from rq new pg, add to rq new pg, redirect to rq new
-router.get('/:id/add-to-request', (req, res) => {
-    db.Opus.findById(req.params.id)
-        .then(opus => res.render('client-requests/client-request-newform', { 
-            requestedOpus: opus,
-            isNewRequest: false 
-        }))
+//update rt: get PUT req (whole opus) from opus-idx, add to req-new pg, redirect to req-new
+router.put('/add-to-request/:requestMade/:opusId', (req, res) => {
+    //if client didn't fill out req form yet
+    console.log(req.params.requestMade);
+    if (req.params.requestMade === 'no') {
+        console.log("should display before cl req");
+        db.Opus.findById(req.params.opusId)
+            .then(opus => {
+                requestedRepertoire.push(opus);
+                res.render('client-requests/client-request-newform', { 
+                requestedOpus: opus,
+                requestedMvmt: null,
+                requestMade: 'yes'
+            })
+        })
+    //if client already filled out req form
+    } else if (req.params.requestMade === 'yes') {
+        console.log("should display after cl req");
+        db.Opus.findById(req.params.opusId)
+            .then(opus => {
+                requestedRepertoire.push(opus);
+                res.render('client-requests/client-request-edit', { 
+                requestedOpus: opus,
+                requestedMvmt: null,
+                requestMade: 'yes'
+            })
+        })
+    } else {
+        console.log(req.params.opusId);
+        res.render('404');
+    }
+})
+
+//update rt: get PUT req (mvmt) from opus-idx, add to req-new pg, redirect to req-new
+router.put('/add-to-request/:requestMade/:opusId/:movementNumber', (req, res) => {
+    //if client didn't fill out req form yet
+    if (req.params.requestMade === 'no') {
+        db.Opus.findById(req.params.id)
+            .then(opus => {
+                requestedRepertoire.push({
+                    title: opus.title,
+                    composer: opus.composer,
+                    movements: [{
+                        movementNumber: opus.movements[opus.movements.indexOf(req.params.movementNumber)].movementNumber,
+                        movementTitle: opus.movements[opus.movements.indexOf(req.params.movementNumber)].movementTitle,
+                        movementPrice: opus.movements[opus.movements.indexOf(req.params.movementNumber)].movementPrice
+                    }],
+                    instrumentation: [...opus.instrumentation],
+                    price: opus.price,
+                    description: opus.description
+                })
+                res.render('client-requests/client-request-newform', { 
+                requestedOpus: opus,
+                requestedMvmt: req.params.movementNumber,
+                requestMade: 'yes'
+            })
+        })
+    //if client already filled out req form
+    } else if (req.params.requestMade === 'yes') {
+        db.Opus.findById(req.params.id)
+            .then(opus => {
+                requestedRepertoire.push({
+                    title: opus.title,
+                    composer: opus.composer,
+                    movements: [{
+                        movementNumber: opus.movements[opus.movements.indexOf(req.params.movementNumber)].movementNumber,
+                        movementTitle: opus.movements[opus.movements.indexOf(req.params.movementNumber)].movementTitle,
+                        movementPrice: opus.movements[opus.movements.indexOf(req.params.movementNumber)].movementPrice
+                    }],
+                    instrumentation: [...opus.instrumentation],
+                    price: opus.price,
+                    description: opus.description
+                })
+                res.render('client-requests/client-request-edit', { 
+                requestedOpus: opus,
+                requestedMvmt: req.params.movementNumber,
+                requestMade: 'yes'
+            })
+        })
+    }
 })
 
 // Export ^rts to be accessible in server.js

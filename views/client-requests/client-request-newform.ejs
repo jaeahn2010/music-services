@@ -54,6 +54,15 @@
             <input type="number" id="eventZip" name="eventLocation[zip]" maxlength="5" required>
             <br>
         </div>
+        <% if (requestMade === "yes") { %>
+            <div>
+                <p>Requested repertoire:</p>
+                <p><%= requestedOpus.composer %></p>
+                <p><%= requestedOpus.title %></p>
+                <p><%= requestedOpus.instrumentation %></p>
+                <p>$<%= requestedOpus.price %></p>
+            </div>
+        <% } %>
         <div>
             <input type="submit" id='submit-btn' value="Submit Request">
         </div>

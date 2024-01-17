@@ -8,6 +8,7 @@ const opusSchema = new mongoose.Schema({
     movements: [{
         type: Object,
         schema: {
+            movementNumber: {type: Number},
             movementTitle: {type: String},
             movementPrice: {type: Number}
         }

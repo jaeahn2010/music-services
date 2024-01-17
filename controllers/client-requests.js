@@ -14,7 +14,6 @@ router.get('/', function (req, res) {
 
 //create rt (POST/Create): receive POST req sent from new rt, creates new req doc w/ form data, redirect to show pg of new req
 router.post('/', (req, res) => {
-    console.log(req.body);
     db.ClientRequest.create(req.body)
         .then(() => res.redirect('/client-requests'))
         })
@@ -22,7 +21,7 @@ router.post('/', (req, res) => {
 //new rt (GET/Read): form to be filled out by user to POST new req
 router.get('/new', (req, res) => {
     db.Opus.find({})
-        .then(opuses => res.render('client-requests/client-request-newform', { opuses: opuses, isNewRequest: true }))
+        .then(opuses => res.render('client-requests/client-request-newform', { opuses: opuses, isNewRequest: true, requestMade: "no" }))
 })
 
 //show rt (GET/Read): disp spec req w/ url param
