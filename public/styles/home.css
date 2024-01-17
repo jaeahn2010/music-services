@@ -1,14 +1,33 @@
-.home-title {
-    text-align: center;
-}
-
 .home-body {
     display: flex;
     justify-content: space-evenly;
+    margin: 20px;
+    padding: 40px 0;
+}
+
+.home-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.home-left p {
+    font-family: cursive;
+}
+
+.home-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
 }
 
 .home-welcome {
-    text-align: center;
+    line-height: 2;
+    padding: 10px;
+    text-align: justify;
 }
 
 .home-links {
@@ -21,4 +40,20 @@
     margin: 20px;
     padding: 10px;
     width: 175px;
+}
+
+.headshot {
+    border: 3px solid rgb(215, 215, 215);
+    border-radius: 10px;
+    width: 150px;
+}
+
+.btn {
+    border-radius: 10px;
+}
+
+.btn:hover {
+    background-color: rgb(215, 215, 0);
+    box-shadow: 3px 3px 5px rgb(100, 100, 0);
+    color: rgb(50, 50, 50);
 }

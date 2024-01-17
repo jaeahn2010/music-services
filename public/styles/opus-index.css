@@ -2,12 +2,104 @@
     text-align: center;
 }
 
-.filters {
+.filters-top {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
+}
+
+.filters-top #composer-filter {
+    margin-right: 20px;
+}
+
+.filters-top #label-2 {
+    margin-left: 20px;
+}
+
+.filters-bottom {
+    margin: 20px;
+    text-align: center;
 }
 
 .each-opus {
-    border: 1px solid black;
+    border: 1px solid white;
+    border-radius: 10px;
     display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.opus-upper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.opus-upper form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 30px;
+}
+
+.each-movement {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 30px;
+}
+
+.opus-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    width: 95%;
+}
+
+.opus-link:hover {
+    color: rgb(215, 215, 0);
+    text-decoration: underline;
+}
+
+.opus-link div {
+    padding: 10px;
+    text-align: center;
+}
+
+.opus-composer, .opus-price {
+    width: 20%;
+}
+
+.opus-title {
+    width: 60%;
+}
+
+.opus-middle {
+    text-align: center;
+}
+
+.movements-button {
+    width: 25%;
+}
+
+.opus-lower {
+    display: none;
+}
+
+.cart {
+    background-color: rgb(180, 180, 180);
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 10px 12px 10px 6px;
+    width: 30px;
+}
+
+.btn, .movements-button {
+    border-radius: 10px;
+    margin: 10px;
+    padding: 5px;
+}
+
+.btn:hover, .cart:hover, .movements-button:hover {
+    background-color: rgb(215, 215, 0);
+    box-shadow: 3px 3px 5px rgb(100, 100, 0);
+    color: rgb(50, 50, 50);
 }

@@ -49,7 +49,7 @@
                 const mvmtTitleInput = document.createElement('input');
                 mvmtTitleInput.setAttribute('type', 'text');
                 mvmtTitleInput.id = 'movements.movementTitle';
-                mvmtTitleInput.setAttribute('name', 'movements.movementTitle');
+                mvmtTitleInput.setAttribute('name', 'movements.0.movementTitle');
                 mvmtTitleLabel.appendChild(mvmtTitleInput);
                 const mvmtPriceLabel = document.createElement('label');
                 mvmtPriceLabel.htmlFor = 'movements.movementPrice'
@@ -58,7 +58,7 @@
                 const mvmtPriceInput = document.createElement('input');
                 mvmtPriceInput.setAttribute('type', 'number');
                 mvmtPriceInput.id = 'movements.movementPrice';
-                mvmtPriceInput.setAttribute('name', 'movements.movementPrice');
+                mvmtPriceInput.setAttribute('name', 'movements.0.movementPrice');
                 mvmtPriceInput.setAttribute('min', 0);
                 mvmtPriceLabel.appendChild(mvmtPriceInput);
             })

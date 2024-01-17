@@ -8,23 +8,25 @@
     <%- include('../partials/nav.ejs') %>
     <h2 class="opus-index-title">Available Repertoire</h2>
     <section class='filters'>
-        <div>
-            <label for="composer-filter">Filter by composer:</label>
+        <div class="filters-top">
+            <label id='label-1'for="composer-filter">Filter by composer:</label>
             <select id="composer-filter" name="composer-filter">
+                <option value="choose-category" disabled selected>Choose a category</option>
             <% for (composer of fullComposersList) { %>
                 <option value=<%= composer %>><%= composer %></option>
             <% } %>
             </select>
-            <label for="instrumentation-filter">Filter by instrumentation:</label>
+            <label id='label-2' for="instrumentation-filter">Filter by instrumentation:</label>
             <select id="instrumentation-filter" name="instrumentation-filter">
                 <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
+                <option value="choose-category" disabled selected>Choose a category</option>
                 <% for (instrument of instrumentsList) { %>
                     <option value=<%= instrument %>><%= instrument %></option>
                 <% } %>
             </select>
         </div>
-        <div>
-            <button id="apply-filters">Apply</button>
+        <div class="filters-bottom">
+            <button class='btn' id="apply-filters">Apply</button>
             <script>
                 let composerFilter = document.getElementById('composer-filter');
                 let instrumentationFilter = document.getElementById('instrumentation-filter');
@@ -35,39 +37,64 @@
                     window.open(`http://localhost:3000/opuses/filter/${chosenComposer}/${chosenInstrumentation}`, "_self");
                 })
             </script>
-            <a id="filter-reset" href="/opuses">Reset filters</a>
+            <a id="filter-reset" href="/opuses"><button class='btn'>Reset filters</button></a>
         </div>
     </section>
 
     <% for (opus of opuses) { %>
         <section class="each-opus">
-            <form method="POST" action="/opuses/add-to-request">
-                <input type="image" src="#" value="Add to Request"/>
-            </form>
-            <a class="opus-link" href="/opuses/<%= opus._id %>">
-                <div><%= opus.composer %></div>
-                <div><%= opus.title %></div>
-                <div><%= opus.instrumentation %></div>
-            </a>
+            <div class="opus-upper">
+                <form method="POST" action="/opuses/add-to-request">
+                    <input class="cart" type="image" src="/assets/cart.png" value="Add to Request"/>
+                </form>
+                <a class="opus-link" href="/opuses/<%= opus._id %>">
+                    <div class="opus-composer"><%= opus.composer %></div>
+                    <div class="opus-title">
+                        <p><%= opus.title %></p>
+                        <p><%= opus.instrumentation %></p>
+                    </div>
+                    <div class="opus-price">$<%= opus.price %></div>
+                </a>
+            </div>
             <% if (opus.movements.length > 0) { %>
-                <button id="movements-button">See individual movements</button>
-            <% } %>
-            <div>
+            <div class="opus-middle">
+                <button class="movements-button">Show movements</button>
+            </div>
+            <div class="opus-lower">
                 <% for (movement of opus.movements) { %>
+                <div class="each-movement">
                     <form method="POST" action="/opuses/add-to-request">
-                        <input type="image" src="#" value="Add to Request"/>
+                        <input class="cart" type="image" src="/assets/cart.png" value="Add to Request"/>
                     </form>
-                    <span>
+                    <p>
                         <%= movement.movementTitle %>
-                    </span>
-                    <span>
+                    </p>
+                    <p>
                         $<%= movement.price %>
-                    </span>
+                    </p>
+                </div>
                 <% } %>
             </div>
-            <div>$<%= opus.price %></div>
+            <% } %>     
         </section>
     <% } %>
+    <script defer>
+        const mvmtBtn = document.getElementsByClassName('movements-button');
+        const opusLower = document.getElementsByClassName('opus-lower');
+        for (let i = 0; i < mvmtBtn.length; i++) {
+            console.log(mvmtBtn[i]);
+            console.log(opusLower[i]);
+            mvmtBtn[i].addEventListener('click', () => {
+                if (mvmtBtn[i].innerText === 'Show movements') {
+                    mvmtBtn[i].innerText = 'Hide movements';
+                    opusLower[i].style.display = 'block';
+                } else {
+                    mvmtBtn[i].innerText = 'Show movements';
+                    opusLower[i].style.display = 'none';
+                }
+            })
+        }
+    </script>  
     <%- include('../partials/footer.ejs') %>
 </body>
 </html>

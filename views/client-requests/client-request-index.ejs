@@ -9,7 +9,7 @@
 <body>
     <%- include('../partials/nav.ejs') %>
     <% if (clientRequests.length < 1) { %>
-        <p>No requests have been made.</p>
+        <p style="text-align: center">No requests have been made.</p>
     <% } else { %>
         <% for (clientRequest of clientRequests) { %>
             <section class="client-request-details">

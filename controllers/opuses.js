@@ -13,7 +13,9 @@ router.get('/', function (req, res) {
         .then(opuses => {
             let fullComposersList = [];
             for (opus of opuses) {
-                fullComposersList.push(opus.composer);
+                if (!fullComposersList.includes(opus.composer)) {
+                    fullComposersList.push(opus.composer);
+                }
             }
             fullComposersList.sort();
             res.render('opuses/opus-index', {
@@ -39,14 +41,34 @@ router.get('/filter/:composer/:instrumentation', function (req, res) {
             fullComposersList.push(opus.composer);
         }
         fullComposersList.sort();
-        db.Opus.find( { $and: [ { composer: req.params.composer }, { instrumentation: { $elemMatch: { $eq: req.params.instrumentation } } } ] } )
-        .then(opuses => {
-            res.render('opuses/opus-index', { 
-                opuses: opuses,
-                composersSorted: true,
-                fullComposersList: fullComposersList
+        if (req.params.composer === 'choose-category') {
+            db.Opus.find( { instrumentation: { $elemMatch: { $eq: req.params.instrumentation } } } )
+            .then(opuses => {
+                res.render('opuses/opus-index', { 
+                    opuses: opuses,
+                    composersSorted: true,
+                    fullComposersList: fullComposersList
+                })
             })
-        })
+        } else if (req.params.instrumentation === 'choose-category') {
+            db.Opus.find( { composer: req.params.composer } )
+            .then(opuses => {
+                res.render('opuses/opus-index', { 
+                    opuses: opuses,
+                    composersSorted: true,
+                    fullComposersList: fullComposersList
+                })
+            })
+        } else {
+            db.Opus.find( { $and: [ { composer: req.params.composer }, { instrumentation: { $elemMatch: { $eq: req.params.instrumentation } } } ] } )
+            .then(opuses => {
+                res.render('opuses/opus-index', { 
+                    opuses: opuses,
+                    composersSorted: true,
+                    fullComposersList: fullComposersList
+                })
+            })
+        }
     })
 })
 

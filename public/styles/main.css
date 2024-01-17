@@ -1,8 +1,10 @@
 * {
+    background-color: rgb(50, 50, 50);
+    color: rgb(215, 215, 215);
     font-family: "Optima", sans-serif;
 }
 
-.glvms-title, footer {
+.glvms-title, .about-title, footer {
     text-align: center;
 }
 
@@ -15,6 +17,7 @@
 }
 
 nav {
+    margin: 40px;
     text-align: center;
 }
 
@@ -22,6 +25,16 @@ nav a {
     margin: 10vw;
 }
 
+nav a:hover {
+    color: rgb(215, 215, 0);
+}
+
 footer nav {
     margin-bottom: 50px;
+}
+
+.about-bio, .about-how-to {
+    line-height: 1.5;
+    margin: 20px;
+    text-align: justify;
 }
