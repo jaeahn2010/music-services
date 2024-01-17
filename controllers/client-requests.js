@@ -4,6 +4,9 @@ const router = express.Router()
 
 //req db connection & models
 const db = require('../models')
+const clientRequest = require('../models/client-request')
+
+let clientRequestsList = [];
 
 //all rts
 //idx rt (GET/Read): disp all reqs
@@ -14,9 +17,14 @@ router.get('/', function (req, res) {
 
 //create rt (POST/Create): receive POST req sent from new rt, creates new req doc w/ form data, redirect to show pg of new req
 router.post('/', (req, res) => {
+    req.body.requestedRepertoire = JSON.parse(req.body.requestedRepertoire);
     db.ClientRequest.create(req.body)
-        .then(() => res.redirect('/client-requests'))
+        .then(clientRequest => {
+            console.log(clientRequest);
+            clientRequestsList.push(clientRequest);
+            res.render('client-requests/client-request-index', {clientRequestsList: clientRequestsList})
         })
+    })
 
 //new rt (GET/Read): form to be filled out by user to POST new req
 router.get('/new', (req, res) => {
@@ -26,8 +34,8 @@ router.get('/new', (req, res) => {
 
 //show rt (GET/Read): disp spec req w/ url param
 router.get('/:id', function (req, res) {
-    db.ClientRequest.findById(req.params.id)
-        .then(clientRequest => res.render('client-requests/client-request-details', { clientRequest: clientRequest }))
+    db.ClientRequest.find({})
+        .then(clientRequests => res.render('client-requests/client-request-index', { clientRequests: clientRequests }))
         .catch(() => res.render('404'))
 })
 

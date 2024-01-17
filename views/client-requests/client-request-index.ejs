@@ -8,10 +8,10 @@
 
 <body>
     <%- include('../partials/nav.ejs') %>
-    <% if (clientRequests.length < 1) { %>
+    <% if (clientRequestsList.length < 1) { %>
         <p style="text-align: center">No requests have been made.</p>
     <% } else { %>
-        <% for (clientRequest of clientRequests) { %>
+        <% for (clientRequest of clientRequestsList) { %>
             <section class="client-request-details">
                 <div>
                     <div class="fixed-details-left">
@@ -32,18 +32,17 @@
             </section>
             <section class="rep-list">
                 <p>Requested repertoire:</p>
+                <% console.log(clientRequest.requestedRepertoire); %>
                 <% for (let rep of clientRequest.requestedRepertoire) { %>
                 <div>
-                    <p>Title: <%= rep.title %></p>
-                    <p>Composer: <%= rep.composer %></p>
+                    <p>Title: <%= rep[0].title %></p>
+                    <p>Composer: <%= rep[0].composer %></p>
                     <p>Instrumentation: 
-                    <% for (let instrument of rep.instrumentation) { %>
-                        <span>
-                            <%= instrument %> 
-                        </span>
+                    <% for (let instrument of rep[0].instrumentation) { %>
+                    <span><%= instrument %> </span>
                     <% } %>
                     </p>
-                    <p>Price: $ <%= rep.price %></p>
+                    <p>Price: $ <%= rep[0].price %></p>
                 </div>
                 <% } %>
             </section>

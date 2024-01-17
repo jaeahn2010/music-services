@@ -19,7 +19,7 @@ const clientRequestSchema = new mongoose.Schema({
         required: true
     },
     comments: {type: String},
-    requestedRepertoire: { type: [opusSchema.schema], required: true}
+    requestedRepertoire: [{ type: [opusSchema.schema], required: true}]
 })
 
 //schema -> models/index.js
