@@ -57,13 +57,28 @@
         <% if (requestMade === "yes") { %>
             <div>
                 <p>Requested repertoire:</p>
-                <p><%= requestedOpus.composer %></p>
-                <p><%= requestedOpus.title %></p>
-                <p><%= requestedOpus.instrumentation %></p>
-                <p>$<%= requestedOpus.price %></p>
+                <% for (requestedOpus of allRequests) { %>
+                <div>
+                    <p><%= requestedOpus.composer %></p>
+                    <p><%= requestedOpus.title %></p>
+                    <% if (requestedOpus.movements.length > 0) { %>
+                        <p>movements:
+                        <% for (movement of requestedOpus.movements) { %>
+                            <p><%= movement.movementTitle %></p>
+                            <p>$<%= movement.movementPrice %></p>
+                        <% } %>
+                        </p>
+                    <% } %>
+                    <p><%= requestedOpus.instrumentation %></p>
+                    <% if (requestedOpus.movements.length === opus.movements.length) { %>
+                        <p>$<%= requestedOpus.price %></p>
+                    <% } %>
+                </div>
+                <% } %>
             </div>
         <% } %>
         <div>
+            <a id="back-to-index" href="/opuses"><button type='button' class='btn'>Add more repertoire</button></a>
             <input type="submit" id='submit-btn' value="Submit Request">
         </div>
     </form>
