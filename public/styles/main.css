@@ -8,8 +8,13 @@
     text-align: center;
 }
 
+.glvms-title {
+    font-size: 20px;
+    margin: 15px;
+}
+
 nav {
-    margin: 40px;
+    margin: 40px 0;
     text-align: center;
 }
 
@@ -19,6 +24,18 @@ nav a {
 
 nav a:hover {
     color: rgb(215, 215, 0);
+}
+
+footer nav {
+    font-size: 12px;
+}
+
+.admin-link {
+    font-size: 10px;
+}
+
+.about-title h3, .about-title h4 {
+    margin: 0;
 }
 
 .about-bio, .about-how-to {

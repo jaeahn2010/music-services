@@ -8,10 +8,11 @@
 
 <body>
     <%- include('../partials/nav.ejs') %>
-    <% if (clientRequestsList.length < 1) { %>
+    <% if (clientRequests.length < 1) { %>
         <p style="text-align: center">No requests have been made.</p>
     <% } else { %>
-        <% for (clientRequest of clientRequestsList) { %>
+        <% console.log(clientRequests); %>
+        <% for (clientRequest of clientRequests) { %>
             <section class="client-request-details">
                 <div>
                     <div class="fixed-details-left">

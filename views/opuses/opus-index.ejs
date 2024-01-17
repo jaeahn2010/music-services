@@ -11,21 +11,34 @@
         <form method="GET" action="/opuses/filter">
             <section class='filters'>
             <div class="filters-top">
-                <label id='label-1'for="composer-filter">Filter by composer:</label>
-                <select id="composer-filter" name="composer">
-                    <option value="choose-category" disabled selected>Choose a category</option>
-                <% for (composer of fullComposersList) { %>
-                    <option value=<%= composer %>><%= composer %></option>
-                <% } %>
-                </select>
-                <label id='label-2' for="instrumentation-filter">Filter by instrumentation:</label>
-                <select id="instrumentation-filter" name="instrumentation">
-                    <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
-                    <option value="choose-category" disabled selected>Choose a category</option>
-                    <% for (instrument of instrumentsList) { %>
-                        <option value=<%= instrument %>><%= instrument %></option>
+                <div class="filter-1">
+                    <label id='label-1'for="composer-filter">Filter by composer:</label>
+                    <select id="composer-filter" name="composer">
+                        <option value="choose-category" disabled selected>Choose a composer</option>
+                    <% for (composer of fullComposersList) { %>
+                        <% let splitName = composer.split('-'); %>
+                        <% let formattedName = ''; %>
+                        <% for (let i = 0; i < splitName.length; i++) { %>
+                            <% if (i === 0) { %>
+                                <% formattedName += splitName[i] + ', ' %> 
+                            <% } else { %>
+                                <% formattedName += splitName[i] + ' '%>
+                            <% } %>
+                        <% } %>
+                        <option value=<%= composer %>><%= formattedName %></option>
                     <% } %>
-                </select>
+                    </select>
+                </div>
+                <div class="filter-2">
+                    <label id='label-2' for="instrumentation-filter">Filter by instrumentation:</label>
+                    <select id="instrumentation-filter" name="instrumentation">
+                        <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
+                        <option value="choose-category" disabled selected>Choose an instrument</option>
+                        <% for (instrument of instrumentsList) { %>
+                            <option value=<%= instrument %>><%= instrument %></option>
+                        <% } %>
+                    </select>
+                </div> 
             </div>
             <div class="filters-bottom">
                 <button class='btn' id="apply-filters">Apply</button>
@@ -45,10 +58,27 @@
                     <input class="cart" type="image" src="/assets/cart.png" value="Add to Request"/>
                 </form>
                 <a class="opus-link" href="/opuses/<%= opus._id %>">
-                    <div class="opus-composer"><%= opus.composer %></div>
+                    <% let splitName = opus.composer.split('-'); %>
+                    <% let formattedName = ''; %>
+                    <% for (let i = 0; i < splitName.length; i++) { %>
+                        <% if (i === 0) { %>
+                            <% formattedName += splitName[i] + ', ' %> 
+                        <% } else { %>
+                            <% formattedName += splitName[i] + ' '%>
+                        <% } %>
+                    <% } %>
+                    <div class="opus-composer"><%= formattedName %></div>
                     <div class="opus-title">
                         <p><%= opus.title %></p>
-                        <p><%= opus.instrumentation %></p>
+                        <p>
+                        <% for (let i = 0; i < opus.instrumentation.length; i++) { %>
+                            <% if (i === opus.instrumentation.length - 1) { %>
+                                <span><%= opus.instrumentation[i] %></span>
+                            <% } else { %>
+                                <span><%= opus.instrumentation[i] %>, </span>
+                            <% } %>
+                        <% } %>
+                        </p>
                     </div>
                     <div class="opus-price">$<%= opus.price %></div>
                 </a>
@@ -63,8 +93,8 @@
                     <form method="POST" action="/opuses/add-to-request/<%= requestMade %>/<%= opus._id %>/<%= opus.movements.indexOf(movement) %>?_method=PUT">
                         <input class="cart" type="image" src="/assets/cart.png" value="Add to Request"/>
                     </form>
-                    <p><%= movement.movementTitle %></p>
-                    <p>$<%= movement.price %></p>
+                    <p class="movement-title"><%= movement.movementTitle %></p>
+                    <p class="movement-price">$<%= movement.movementPrice %></p>
                 </div>
                 <% } %>
             </div>
@@ -86,7 +116,6 @@
                 }
             })
         }
-    </script>  
-    <%- include('../partials/footer.ejs') %>
+    </script>
 </body>
 </html>

@@ -16,13 +16,21 @@ router.get('/', function (req, res) {
 })
 
 //create rt (POST/Create): receive POST req sent from new rt, creates new req doc w/ form data, redirect to show pg of new req
+// router.post('/', (req, res) => {
+//     req.body.requestedRepertoire = JSON.parse(req.body.requestedRepertoire);
+//     db.ClientRequest.create(req.body)
+//         .then(clientRequest => {
+//             clientRequestsList.push(clientRequest);
+//             res.render('client-requests/client-request-index', {clientRequestsList: clientRequestsList})
+//         })
+//     })
+
 router.post('/', (req, res) => {
     req.body.requestedRepertoire = JSON.parse(req.body.requestedRepertoire);
     db.ClientRequest.create(req.body)
-        .then(clientRequest => {
-            console.log(clientRequest);
-            clientRequestsList.push(clientRequest);
-            res.render('client-requests/client-request-index', {clientRequestsList: clientRequestsList})
+        .then(() => {
+            db.ClientRequest.find({})
+                .then(clientRequests => res.render('client-requests/client-request-index', { clientRequests: clientRequests}))
         })
     })
 

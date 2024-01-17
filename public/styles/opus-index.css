@@ -3,16 +3,11 @@
 }
 
 .filters-top {
-    display: flex;
-    justify-content: space-around;
+    text-align: center;
 }
 
-.filters-top #composer-filter {
-    margin-right: 20px;
-}
-
-.filters-top #label-2 {
-    margin-left: 20px;
+.filters-top div {
+    margin: 10px;
 }
 
 .filters-bottom {
@@ -23,9 +18,11 @@
 .each-opus {
     border: 1px solid white;
     border-radius: 10px;
-    display: flex;
-    flex-direction: column;
     margin: 10px;
+}
+
+.each-opus * {
+    background-color: rgb(122, 122, 122);
 }
 
 .opus-upper {
@@ -40,16 +37,9 @@
     margin: 0 30px;
 }
 
-.each-movement {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 30px;
-}
+
 
 .opus-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     text-decoration: none;
     width: 95%;
 }
@@ -60,24 +50,29 @@
 }
 
 .opus-link div {
-    padding: 10px;
-    text-align: center;
-}
-
-.opus-composer, .opus-price {
-    width: 20%;
-}
-
-.opus-title {
-    width: 60%;
+    text-align: left;
 }
 
 .opus-middle {
     text-align: center;
 }
 
-.movements-button {
-    width: 25%;
+.each-movement {
+    border: 1px solid white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 30px;
+}
+
+.movement-title {
+    padding: 5px;
+    width: 80%;
+}
+
+.movement-price {
+    width: 20%;
 }
 
 .opus-lower {
