@@ -25,6 +25,7 @@ router.get('/', function (req, res) {
             res.render('opuses/opus-index', {
             opuses: opuses,
             fullComposersList: fullComposersList,
+            filtered: false,
             requestMade: 'no'
         })
     })
@@ -37,40 +38,35 @@ router.post('/', (req, res) => {
 })
 
 //show rt: index w/ filters
-router.get('/filter/:composer/:instrumentation', function (req, res) {
-    db.Opus.find({})
-    .then(opuses => {
-        let fullComposersList = [];
-        for (opus of opuses) {
-            fullComposersList.push(opus.composer);
-        }
-        fullComposersList.sort();
-        if (req.params.composer === 'choose-category') {
-            db.Opus.find( { instrumentation: { $elemMatch: { $eq: req.params.instrumentation } } } )
-            .then(opuses => {
-                res.render('opuses/opus-index', { 
-                    opuses: opuses,
-                    fullComposersList: fullComposersList
-                })
+router.get('/filter', function (req, res) {
+    if (req.query.composer === undefined) {
+        db.Opus.find( { instrumentation: { $elemMatch: { $eq: req.query.instrumentation } } } )
+        .then(opuses => {
+            res.render('opuses/opus-index', { 
+                opuses: opuses,
+                filtered: true,
+                requestMade: 'no'
             })
-        } else if (req.params.instrumentation === 'choose-category') {
-            db.Opus.find( { composer: req.params.composer } )
-            .then(opuses => {
-                res.render('opuses/opus-index', { 
-                    opuses: opuses,
-                    fullComposersList: fullComposersList
-                })
+        })
+    } else if (req.query.instrumentation === undefined) {
+        db.Opus.find( { composer: req.query.composer } )
+        .then(opuses => {
+            res.render('opuses/opus-index', { 
+                opuses: opuses,
+                filtered: true,
+                requestMade: 'no'
             })
-        } else {
-            db.Opus.find( { $and: [ { composer: req.params.composer }, { instrumentation: { $elemMatch: { $eq: req.params.instrumentation } } } ] } )
-            .then(opuses => {
-                res.render('opuses/opus-index', { 
-                    opuses: opuses,
-                    fullComposersList: fullComposersList
-                })
+        })
+    } else {
+        db.Opus.find( { $and: [ { composer: req.query.composer }, { instrumentation: { $elemMatch: { $eq: req.query.instrumentation } } } ] } )
+        .then(opuses => {
+            res.render('opuses/opus-index', { 
+                opuses: opuses,
+                filtered: true,
+                requestMade: 'no'
             })
-        }
-    })
+        })
+    }
 })
 
 //new rt: form to be filled to create new opus

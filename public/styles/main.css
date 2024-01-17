@@ -8,29 +8,17 @@
     text-align: center;
 }
 
-.admin-link {
-    font-size: 10px;
-}
-
-.admin-link p {
-    margin: 0;
-}
-
 nav {
     margin: 40px;
     text-align: center;
 }
 
 nav a {
-    margin: 10vw;
+    margin: 7vw;
 }
 
 nav a:hover {
     color: rgb(215, 215, 0);
-}
-
-footer nav {
-    margin-bottom: 50px;
 }
 
 .about-bio, .about-how-to {

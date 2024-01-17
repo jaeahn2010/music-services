@@ -7,40 +7,37 @@
 <body>
     <%- include('../partials/nav.ejs') %>
     <h2 class="opus-index-title">Available Repertoire</h2>
-    <section class='filters'>
-        <div class="filters-top">
-            <label id='label-1'for="composer-filter">Filter by composer:</label>
-            <select id="composer-filter" name="composer-filter">
-                <option value="choose-category" disabled selected>Choose a category</option>
-            <% for (composer of fullComposersList) { %>
-                <option value=<%= composer %>><%= composer %></option>
-            <% } %>
-            </select>
-            <label id='label-2' for="instrumentation-filter">Filter by instrumentation:</label>
-            <select id="instrumentation-filter" name="instrumentation-filter">
-                <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
-                <option value="choose-category" disabled selected>Choose a category</option>
-                <% for (instrument of instrumentsList) { %>
-                    <option value=<%= instrument %>><%= instrument %></option>
+    <% if (filtered === false) { %>
+        <form method="GET" action="/opuses/filter">
+            <section class='filters'>
+            <div class="filters-top">
+                <label id='label-1'for="composer-filter">Filter by composer:</label>
+                <select id="composer-filter" name="composer">
+                    <option value="choose-category" disabled selected>Choose a category</option>
+                <% for (composer of fullComposersList) { %>
+                    <option value=<%= composer %>><%= composer %></option>
                 <% } %>
-            </select>
-        </div>
+                </select>
+                <label id='label-2' for="instrumentation-filter">Filter by instrumentation:</label>
+                <select id="instrumentation-filter" name="instrumentation">
+                    <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
+                    <option value="choose-category" disabled selected>Choose a category</option>
+                    <% for (instrument of instrumentsList) { %>
+                        <option value=<%= instrument %>><%= instrument %></option>
+                    <% } %>
+                </select>
+            </div>
+            <div class="filters-bottom">
+                <button class='btn' id="apply-filters">Apply</button>
+                <a id="filter-reset" href="/opuses"><button type='button' class='btn'>Reset filters</button></a>
+            </div>
+        </section>
+        </form>
+    <% } else { %>
         <div class="filters-bottom">
-            <button class='btn' id="apply-filters">Apply</button>
-            <script>
-                let composerFilter = document.getElementById('composer-filter');
-                let instrumentationFilter = document.getElementById('instrumentation-filter');
-                let applyFilters = document.getElementById('apply-filters');
-                applyFilters.addEventListener('click', () => {
-                    let chosenComposer = composerFilter.options[composerFilter.selectedIndex].value;
-                    let chosenInstrumentation = instrumentationFilter.options[instrumentationFilter.selectedIndex].value;
-                    window.open(`http://localhost:3000/opuses/filter/${chosenComposer}/${chosenInstrumentation}`, "_self");
-                })
-            </script>
-            <a id="filter-reset" href="/opuses"><button class='btn'>Reset filters</button></a>
+            <a id="filter-reset" href="/opuses"><button type='button' class='btn'>Go back</button></a>
         </div>
-    </section>
-
+    <% } %>
     <% for (opus of opuses) { %>
         <section class="each-opus">
             <div class="opus-upper">
