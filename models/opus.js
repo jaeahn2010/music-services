@@ -5,12 +5,6 @@ const mongoose = require('mongoose');
 const opusSchema = new mongoose.Schema({
     title: {type: String, required: true},
     composer: {type: String, required: true},
-    // movements: [
-    //     new mongoose.Schema( {
-    //         movementTitle: {type: String},
-    //         movementPrice: {type: Number}
-    //     })
-    // ],
     movements: [{
         type: Object,
         schema: {

@@ -14,6 +14,7 @@ router.get('/', function (req, res) {
 
 //create rt (POST/Create): receive POST req sent from new rt, creates new req doc w/ form data, redirect to show pg of new req
 router.post('/', (req, res) => {
+    console.log(req.body);
     db.ClientRequest.create(req.body)
         .then(() => res.redirect('/client-requests'))
         })

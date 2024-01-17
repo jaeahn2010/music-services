@@ -23,7 +23,10 @@
                     <div class="fixed-details-right">
                         <p>Event: <strong><%= clientRequest.eventTitle %></strong></p>
                         <p>Date & Time: <strong><%= clientRequest.eventDate %></strong></p>
-                        <p>Location: <strong><%= clientRequest.eventLocation %></strong></p>
+                        <p>Location:</p>
+                        <p><strong><%= clientRequest.eventLocation.address %></strong></p>
+                        <p><strong><%= clientRequest.eventLocation.city %>, <%= clientRequest.eventLocation.state %></strong></p>
+                        <p><strong><%= clientRequest.eventLocation.zip %></strong></p>
                     </div>
                 </div>
             </section>

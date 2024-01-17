@@ -13,29 +13,55 @@
     <form method="POST" action="/client-requests/<%= clientRequest._id %>?_method=PUT">
         <div>
             <label for="clientName">Your Name:</label>
-            <input type="text" id="clientName" name="clientName" value= <%= clientRequest.clientName %> required>
+            <input type="text" id="clientName" name="clientName" value=<%= clientRequest.clientName %> required>
         </div>
         <div>
-            <label for="clientInstrument">Your Instrument:</label>
-            <input type="text" id="clientInstrument" name="clientInstrument" value= <%= clientRequest.clientInstrument %> required>
+            <label for="clientInstrument">Your instrument:</label>
+            <select id="clientInstrument" name="clientInstrument">
+                <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
+                <option value="choose-category" disabled selected>Choose a category</option>
+                <% for (instrument of instrumentsList) { %>
+                    <% if (instrument === clientRequest.clientInstrument) { %>
+                        <option value=<%= instrument %>><%= instrument %> selected </option>
+                    <% } else { %>
+                        <option value=<%= instrument %>><%= instrument %></option>
+                    <% } %>
+                <% } %>
+            </select>
         </div>
         <div>
             <label for="eventTitle">Event Title:</label>
-            <input type="text" id="eventTitle" name="eventTitle" value= <%= clientRequest.eventTitle %> required>
+            <input type="text" id="eventTitle" name="eventTitle" value=<%= clientRequest.eventTitle %> required>
         </div>
         <div>
             <label for="eventDate">Date & Time:</label>
-            <input type="date" id="eventDate" name="eventDate" value= <%= clientRequest.eventDate %> required>
+            <input type="datetime-local" id="eventDate" name="eventDate" value=<%= clientRequest.eventDate %> required>
         </div>
+        <p>Event location:</p>
         <div>
-            <label for="eventLocation">Location:</label>
-            <input type="text" id="eventLocation" name="eventLocation" value= <%= clientRequest.eventLocation %>  required>
+            <label for="eventAddress">Address:</label>
+            <input type="text" id="eventAddress" name="eventLocation[address]" value=<%= clientRequest.eventLocation.address %> required>
+            <br>
+            <label for="eventCity">City:</label>
+            <input type="text" id="eventCity" name="eventLocation[city]" value=<%= clientRequest.eventLocation.city %> required>
+            <br>
+            <label for="eventState">State:</label>
+            <select id="eventState" name="eventLocation[state]">
+                <% let states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'Washington, D.C.', 'West Virginia', 'Wisconsin', 'Wyoming']; %>
+                <option value="choose-category" disabled selected>Choose a state</option>
+                <% for (state of states) { %>
+                    <% if (state === clientRequest.eventLocation.state) { %>
+                        <option value=<%= state %>><%= state %> selected </option>
+                    <% } else { %>
+                        <option value=<%= state %>><%= state %></option>
+                    <% } %>
+                <% } %>
+            </select>
+            <br>
+            <label for="eventZip">Zip code:</label>
+            <input type="number" id="eventZip" name="eventLocation[zip]" maxlength="5" value=<%= clientRequest.eventLocation.zip %> required>
+            <br>
         </div>
-        <!-- <div>
-            <label for="requestedRepertoire">Your Requested Repertoire:</label>
-            <input type="text" id="requestedRepertoire" name="requestedRepertoire" value= <%# clientRequest.requestedRepertoire %>  required>
-            fix^; needs to be either a dropdown menu or a list of what client has chosen-->
-        <!-- </div> -->
         <div>
             <input id='submit-btn' type="submit" value="Submit Revised Request">
         </div>

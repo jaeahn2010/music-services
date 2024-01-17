@@ -8,29 +8,18 @@ const clientRequestSchema = new mongoose.Schema({
     clientInstrument: {type: String, required: true},
     eventTitle: {type: String, required: true},
     eventDate: {type: Date, required: true},
-    eventLocation: {type: String, required: true},
+    eventLocation: {
+        type: Object,
+        schema: {
+            address: {type: String, required: true},
+            city: {type: String, required: true},
+            state: {type: String, required: true},
+            zip: {type: Number, maxLength: 5, required: true},
+        },
+        required: true
+    },
     comments: {type: String},
-    requestedRepertoire: [
-        new mongoose.Schema({
-            title: {type: String, required: true},
-            composer: {type: String, required: true},
-            movements: [
-                new mongoose.Schema( {
-                    movementTitle: {type: String},
-                    price: {type: Number}
-                })
-            ],
-            instrumentation: [{type: String, required: true}],
-            price: {type: Number, required: true},
-        })
-    ]
-    //testing reference in place of embedding below
-    // requestedRepertoire: [
-    //     {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: "Opus"
-    //     }
-    // ]
+    requestedRepertoire: { type: [opusSchema.schema], required: true}
 })
 
 //schema -> models/index.js
