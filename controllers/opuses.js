@@ -78,7 +78,6 @@ router.put('/add-to-request/:opusId', (req, res) => {
             wholeOpus = opus;
             wholeOpus["isMovement"] = false;
             requestedRepertoire.push(wholeOpus);
-            console.log('whole opus pushed: ', wholeOpus);
             res.render('client-requests/client-request-viewcart', { 
                 cart: requestedRepertoire,
             })
@@ -91,6 +90,7 @@ router.put('/add-to-request/:opusId/:movementIdx', (req, res) => {
         .then(opus => {
             //push the opus obj w/ only the selected mvmt
             let mvmt = {
+                _id: opus._id,
                 title: opus.title,
                 composer: opus.composer,
                 movements: [{
@@ -104,7 +104,6 @@ router.put('/add-to-request/:opusId/:movementIdx', (req, res) => {
                 isMovement: true
             }
             requestedRepertoire.push(mvmt)
-            console.log('movement pushed: ', mvmt);
             res.render('client-requests/client-request-viewcart', { 
                 cart: requestedRepertoire,
             })
@@ -118,7 +117,6 @@ router.put('/modify-request/:opusId', (req, res) => {
             for (let i = 0; i < requestedRepertoire.length; i++) {
                 if (requestedRepertoire[i]._id.equals(opus._id)) {
                     requestedRepertoire.splice(i, 1);
-                    console.log('whole opus deleted: ', requestedRepertoire);
                 }
             }
             res.render('client-requests/client-request-viewcart', { 
@@ -129,12 +127,12 @@ router.put('/modify-request/:opusId', (req, res) => {
 
 //delete rt: 'remove from cart' btn of MOVEMENT clicked: remove from array, go to req-viewcart
 router.put('/modify-request/:opusId/:mvmtNumber', (req, res) => {
+    console.log("you've reached the mvmt del route")
     db.Opus.findById(req.params.opusId)
         .then(opus => {
             for (let i = 0; i < requestedRepertoire.length; i++) {
-                if (requestedRepertoire[i]._id.equals(opus._id) && requestedRepertoire[i].movements.movementNumber === req.params.mvmtNumber) {
+                if (requestedRepertoire[i]._id.equals(opus._id) && requestedRepertoire[i].movements[0].movementNumber === Number(req.params.mvmtNumber)) {
                     requestedRepertoire.splice(i, 1);
-                    console.log('movement deleted: ', item);
                 }
             }     
             res.render('client-requests/client-request-viewcart', { 

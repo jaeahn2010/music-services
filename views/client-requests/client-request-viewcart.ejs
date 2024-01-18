@@ -27,11 +27,11 @@
         <% } %>
         <% if (opus.isMovement === false) { %>
             <form method="POST" action="/opuses/modify-request/<%= opus._id %>?_method=PUT">
-                <input class="btn" type="submit" value="Remove from Cart"/>
+                <input class="btn" type="submit" value="Remove opus from Cart"/>
             </form>
         <% } else if (opus.isMovement === true) { %>
-            <form method="POST" action="/opuses/modify-request/<%= opus._id %>/<%= opus.movements.movementNumber %>?_method=PUT">
-                <input class="btn" type="submit" value="Remove from Cart"/>
+            <form method="POST" action="/opuses/modify-request/<%= opus._id %>/<%= opus.movements[0].movementNumber %>?_method=PUT">
+                <input class="btn" type="submit" value="Remove movement from Cart"/>
             </form>
         <% } %>
         <% i++; %>
