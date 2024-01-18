@@ -9,17 +9,13 @@ const clientRequestSchema = new mongoose.Schema({
     eventTitle: {type: String, required: true},
     eventDate: {type: Date, required: true},
     eventLocation: {
-        type: Object,
-        schema: {
-            address: {type: String, required: true},
-            city: {type: String, required: true},
-            state: {type: String, required: true},
-            zip: {type: Number, maxLength: 5, required: true},
-        },
-        required: true
+        address: {type: String, required: true},
+        city: {type: String, required: true},
+        state: {type: String, required: true},
+        zip: {type: Number, maxLength: 5, required: true},
     },
     comments: {type: String},
-    requestedRepertoire: [{ type: [opusSchema.schema], required: true}]
+    requestedRepertoire: [opusSchema.schema]
 })
 
 //schema -> models/index.js

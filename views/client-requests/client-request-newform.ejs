@@ -3,7 +3,7 @@
 
 <head>
     <%- include('../partials/head.ejs', {title: 'Add a New Request | GLVMS'}) %>
-    <link rel="stylesheet" href="/styles/client-request-new.css">
+    <link rel="stylesheet" href="/styles/client-request-newform.css">
 </head>
 
 <body>
@@ -11,56 +11,50 @@
 
     <h2>Add a New Request</h2>
     <form method="POST" action="/client-requests">
-        <div>
-            <label for="clientName">Your Name:</label>
-            <input type="text" id="clientName" name="clientName" required>
-        </div>
-        <div>
-            <label for="clientInstrument">Your instrument:</label>
-            <select id="clientInstrument" name="clientInstrument">
-                <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
-                <option value="choose-category" disabled selected>Choose a category</option>
-                <% for (instrument of instrumentsList) { %>
-                    <option value=<%= instrument %>><%= instrument %></option>
-                <% } %>
-            </select>
-        </div>
-        <div>
-            <label for="eventTitle">Event Title:</label>
-            <input type="text" id="eventTitle" name="eventTitle" required>
-        </div>
-        <div>
-            <label for="eventDate">Date & Time:</label>
-            <input type="datetime-local" id="eventDate" name="eventDate" required>
-        </div>
-        <p>Event location:</p>
-        <div>
-            <label for="eventAddress">Address:</label>
-            <input type="text" id="eventAddress" name="eventLocation[address]" required>
-            <br>
-            <label for="eventCity">City:</label>
-            <input type="text" id="eventCity" name="eventLocation[city]" required>
-            <br>
-            <label for="eventState">State:</label>
-            <select id="eventState" name="eventLocation[state]">
-                <% let states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'Washington, D.C.', 'West Virginia', 'Wisconsin', 'Wyoming']; %>
-                <option value="choose-category" disabled selected>Choose a state</option>
-                <% for (state of states) { %>
-                    <option value=<%= state %>><%= state %></option>
-                <% } %>
-            </select>
-            <br>
-            <label for="eventZip">Zip code:</label>
-            <input type="number" id="eventZip" name="eventLocation[zip]" maxlength="5" required>
-            <br>
-            <br>
-        </div>
-        <%# if (requestInProgress === "yes") { %>
-            <div>
-                <p>Requested repertoire:</p>
-                <br>
-                <input type="hidden" id="requestedRepertoire" name="requestedRepertoire" value="<%= JSON.stringify(allRequests) %>">
-                <% for (requestedOpus of allRequests) { %>
+        <table>
+            <tr>
+                <td><label for="clientName">Your Name:</label></td>
+                <td><input type="text" id="clientName" name="clientName" required></td>
+            </tr>
+            <tr>
+                <td><label for="clientInstrument">Your instrument:</label></td>
+                <td><select id="clientInstrument" name="clientInstrument">
+                    <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
+                    <option value="choose-category" disabled selected>Choose a category</option>
+                    <% for (instrument of instrumentsList) { %>
+                        <option value=<%= instrument %>><%= instrument %></option>
+                    <% } %>
+                </select></td>
+            </tr>
+            <tr>
+                <td><label for="eventTitle">Event Title:</label></td>
+                <td><input type="text" id="eventTitle" name="eventTitle" required></td>
+            </tr>
+            <tr>
+                <td><label for="eventDate">Date & Time:</label></td>
+                <td></td><input type="datetime-local" id="eventDate" name="eventDate" required></td>
+            </tr>
+            <tr><td>Event location:</td></tr>
+            <tr>
+                <td><label for="eventAddress">Address:</label></td>
+                <td><input type="text" id="eventAddress" name="eventLocation[address]" required></td>
+                <td><label for="eventCity">City:</label></td>
+                <td><input type="text" id="eventCity" name="eventLocation[city]" required></td>
+                <td><label for="eventState">State:</label></td>
+                <td><select id="eventState" name="eventLocation[state]">
+                    <% let states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'Washington, D.C.', 'West Virginia', 'Wisconsin', 'Wyoming']; %>
+                    <option value="choose-category" disabled selected>Choose a state</option>
+                    <% for (state of states) { %>
+                        <option value=<%= state %>><%= state %></option>
+                    <% } %>
+                </select></td>
+                <td><label for="eventZip">Zip code:</label></td>
+                <td><input type="number" id="eventZip" name="eventLocation[zip]" maxlength="5" required></td>
+            </tr>
+            <tr>
+                <td><p>Requested repertoire:</p></td>
+                <input type="hidden" id="requestedRepertoire" name="requestedRepertoire" value="<%= JSON.stringify(requestList) %>">
+                <% for (requestedOpus of requestList) { %>
                     <p><%= requestedOpus.composer %></p>
                     <p><%= requestedOpus.title %></p>
                     <% if (requestedOpus.movements.length > 0) { %>
@@ -76,9 +70,9 @@
                         <p>$<%= requestedOpus.price %></p>
                     <% } %>
                 <% } %>
-            </div>
-            <br>
-        <%# } %>
+            </tr>
+        </table>
+        <br>
         <div>
         <% if (requestInProgress === 'yes') { %>
             <a id="back-to-index" href="/opuses/<%= clientRequest._id %>"><button type='button' class='btn'>Add more repertoire</button></a>

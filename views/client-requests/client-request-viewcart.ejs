@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head.ejs', {title: 'Your Cart | GLVMS'}) %>
+    <link rel="stylesheet" href="/styles/client-request-viewcart.css">
+</head>
+
+<body>
+    <%- include('../partials/nav.ejs') %>
+    <h3>Your cart</h3>
+    <% let i = 0 %>
+    <% for (opus of cart) { %>
+        <p><%= opus.composer %></p>
+        <p><%= opus.title %></p>
+        <% if (opus.movements.length > 0) { %>
+            <p>movements:
+            <% for (movement of opus.movements) { %>
+                <p><%= movement.movementTitle %></p>
+                <p>$<%= movement.movementPrice %></p>
+            <% } %>
+            </p>
+        <% } %>
+        <p><%= opus.instrumentation %></p>
+        <% if (opus.movements.length === opus.movements.length) { %>
+            <p>$<%= opus.price %></p>
+        <% } %>
+        <% if (opus.isMovement === false) { %>
+            <form method="POST" action="/opuses/modify-request/<%= opus._id %>?_method=PUT">
+                <input class="btn" type="submit" value="Remove from Cart"/>
+            </form>
+        <% } else if (opus.isMovement === true) { %>
+            <form method="POST" action="/opuses/modify-request/<%= opus._id %>/<%= opus.movements.movementNumber %>?_method=PUT">
+                <input class="btn" type="submit" value="Remove from Cart"/>
+            </form>
+        <% } %>
+        <% i++; %>
+    <% } %>
+    <form method="POST" action="/opuses/clear-cart">
+        <input class="btn" type="submit" value="Clear Cart and Start Over"/>
+    </form>
+    <form method="GET" action="/opuses">
+        <input class="btn" type="submit" value="Add More Repertoire"/>
+    </form>
+    <form method="GET" action="/opuses/done-adding">
+        <input class="btn" type="submit" value="Done Adding Repertoire"/>
+    </form>
+    <%- include('../partials/footer.ejs') %>
+</body>
+
+</html>

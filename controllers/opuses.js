@@ -26,7 +26,6 @@ router.get('/', function (req, res) {
             opuses: opuses,
             fullComposersList: fullComposersList,
             filtered: false,
-            requestInProgress: 'no'
         })
     })
 })
@@ -40,7 +39,6 @@ router.get('/filter', function (req, res) {
             res.render('opuses/opus-index', { 
                 opuses: opuses,
                 filtered: true,
-                requestInProgress: 'no'
             })
         })
     //composer filter specified only
@@ -50,7 +48,6 @@ router.get('/filter', function (req, res) {
             res.render('opuses/opus-index', { 
                 opuses: opuses,
                 filtered: true,
-                requestInProgress: 'no'
             })
         })
     //both filters specified
@@ -60,7 +57,6 @@ router.get('/filter', function (req, res) {
             res.render('opuses/opus-index', { 
                 opuses: opuses,
                 filtered: true,
-                requestInProgress: 'no'
             })
         })
     }
@@ -75,145 +71,91 @@ router.get('/:id', function (req, res) {
 
 /* ----------------------------------------- USER-ONLY ROUTES ----------------------------------------- */
 
-//update rt: 'cart img' btn of WHOLE OPUS clicked: add to req-new pg, redirect to req-new
-router.put('/add-to-request/:requestInProgress/:opusId', (req, res) => {
-    //if client didn't fill out req form yet
-    if (req.params.requestInProgress === 'no') {
-        db.Opus.findById(req.params.opusId)
-            .then(opus => {
-                requestedRepertoire.push(opus);
-                res.render('client-requests/client-request-newform', { 
-                opus: opus,
-                allRequests: requestedRepertoire,
-                requestedMvmt: null,
-                requestInProgress: 'no'
+//update rt: 'cart img' btn of WHOLE OPUS clicked: add to array, go to req-viewcart
+router.put('/add-to-request/:opusId', (req, res) => {
+    db.Opus.findById(req.params.opusId)
+        .then(opus => {
+            wholeOpus = opus;
+            wholeOpus["isMovement"] = false;
+            requestedRepertoire.push(wholeOpus);
+            console.log('whole opus pushed: ', wholeOpus);
+            res.render('client-requests/client-request-viewcart', { 
+                cart: requestedRepertoire,
             })
-        })
-    //if client already filled out req form
-    } else if (req.params.requestInProgress === 'yes') {
-        console.log("should display after cl req");
-        db.Opus.findById(req.params.opusId)
-            .then(opus => {
-                requestedRepertoire.push(opus);
-                res.render('client-requests/client-request-edit', { 
-                opus: opus,
-                allRequests: requestedRepertoire,
-                requestedMvmt: null,
-                requestInProgress: 'yes'
-            })
-        })
-    } else {
-        res.render('404');
-    }
-})
-
-//update rt: 'cart img' btn of MOVEMENT clicked:, add to req-new pg, redirect to req-new
-router.put('/add-to-request/:requestInProgress/:opusId/:movementIdx', (req, res) => {
-    //if client didn't fill out req form yet
-    if (req.params.requestInProgress === 'no') {
-        db.Opus.findById(req.params.opusId)
-            .then(opus => {
-                //push the opus obj w/ only the selected mvmt
-                requestedRepertoire.push({
-                    title: opus.title,
-                    composer: opus.composer,
-                    movements: [{
-                        movementNumber: opus.movements[req.params.movementIdx].movementNumber,
-                        movementTitle: opus.movements[req.params.movementIdx].movementTitle,
-                        movementPrice: opus.movements[req.params.movementIdx].movementPrice,
-                    }],
-                    instrumentation: [...opus.instrumentation],
-                    price: opus.price,
-                    description: opus.description
-                })
-                res.render('client-requests/client-request-newform', { 
-                opus: opus,
-                allRequests: requestedRepertoire,
-                requestedMvmt: opus.movements[req.params.movementIdx],
-                requestInProgress: 'no'
-            })
-        })
-    //if client already filled out req form
-    } else if (req.params.requestInProgress === 'yes') {
-        db.Opus.findById(req.params.opusId)
-            .then(opus => {
-                requestedRepertoire.push({
-                    title: opus.title,
-                    composer: opus.composer,
-                    movements: [{
-                        movementNumber: opus.movements[req.params.movementIdx].movementNumber,
-                        movementTitle: opus.movements[req.params.movementIdx].movementTitle,
-                        movementPrice: opus.movements[req.params.movementIdx].movementPrice,
-                    }],
-                    instrumentation: [...opus.instrumentation],
-                    price: opus.price,
-                    description: opus.description
-                })
-                res.render('client-requests/client-request-edit', { 
-                opus: opus,
-                allRequests: requestedRepertoire,
-                requestedMvmt: opus.movements[req.params.movementIdx],
-                requestInProgress: 'yes'
-            })
-        })
-    }
-})
-
-//idx rt: 'see repertoire list' or 'add repertoire' btn clicked while client-req IN PROGRESS: disp all opuses
-router.get('/:clientRequestId', function (req, res) {
-    db.Opus.find({})
-        .then(opuses => {
-            //to fill composer-filter drop-down menu on opus-idx pg w/o any repeats
-            let fullComposersList = [];
-            for (opus of opuses) {
-                if (!fullComposersList.includes(opus.composer)) {
-                    fullComposersList.push(opus.composer);
-                }
-            }
-            fullComposersList.sort();
-            //go to opus-idx pg w/ all opuses, fullComposersList for filter, client-req NOT made
-            res.render('opuses/opus-index', {
-            opuses: opuses,
-            fullComposersList: fullComposersList,
-            filtered: false,
-            requestInProgress: 'yes'
         })
     })
+
+//update rt: 'cart img' btn of MOVEMENT clicked: add to array, go to req-viewcart
+router.put('/add-to-request/:opusId/:movementIdx', (req, res) => {
+    db.Opus.findById(req.params.opusId)
+        .then(opus => {
+            //push the opus obj w/ only the selected mvmt
+            let mvmt = {
+                title: opus.title,
+                composer: opus.composer,
+                movements: [{
+                    movementNumber: opus.movements[req.params.movementIdx].movementNumber,
+                    movementTitle: opus.movements[req.params.movementIdx].movementTitle,
+                    movementPrice: opus.movements[req.params.movementIdx].movementPrice,
+                }],
+                instrumentation: [...opus.instrumentation],
+                price: opus.price,
+                description: opus.description,
+                isMovement: true
+            }
+            requestedRepertoire.push(mvmt)
+            console.log('movement pushed: ', mvmt);
+            res.render('client-requests/client-request-viewcart', { 
+                cart: requestedRepertoire,
+            })
+        })
+    })
+
+//delete rt: 'remove from cart' btn of WHOLE OPUS clicked: remove from array, go to req-viewcart
+router.put('/modify-request/:opusId', (req, res) => {
+    db.Opus.findById(req.params.opusId)
+        .then(opus => {
+            for (let i = 0; i < requestedRepertoire.length; i++) {
+                if (requestedRepertoire[i]._id.equals(opus._id)) {
+                    requestedRepertoire.splice(i, 1);
+                    console.log('whole opus deleted: ', requestedRepertoire);
+                }
+            }
+            res.render('client-requests/client-request-viewcart', { 
+                cart: requestedRepertoire
+            })
+        })
 })
 
-//show rt: 'filter' btn clicked while client-req IN PRORESS: disp idx pg w/ filters
-router.get('/:clientRequestId/filter', function (req, res) {
-    //instrumentation filter specified only
-    if (req.query.composer === undefined) {
-        db.Opus.find( { instrumentation: { $elemMatch: { $eq: req.query.instrumentation } } } )
-        .then(opuses => {
-            res.render('opuses/opus-index', { 
-                opuses: opuses,
-                filtered: true,
-                requestInProgress: 'yes'
+//delete rt: 'remove from cart' btn of MOVEMENT clicked: remove from array, go to req-viewcart
+router.put('/modify-request/:opusId/:mvmtNumber', (req, res) => {
+    db.Opus.findById(req.params.opusId)
+        .then(opus => {
+            for (let i = 0; i < requestedRepertoire.length; i++) {
+                if (requestedRepertoire[i]._id.equals(opus._id) && requestedRepertoire[i].movements.movementNumber === req.params.mvmtNumber) {
+                    requestedRepertoire.splice(i, 1);
+                    console.log('movement deleted: ', item);
+                }
+            }     
+            res.render('client-requests/client-request-viewcart', { 
+                cart: requestedRepertoire
             })
         })
-    //composer filter specified only
-    } else if (req.query.instrumentation === undefined) {
-        db.Opus.find( { composer: req.query.composer } )
-        .then(opuses => {
-            res.render('opuses/opus-index', { 
-                opuses: opuses,
-                filtered: true,
-                requestInProgress: 'yes'
-            })
-        })
-    //both filters specified
-    } else {
-        db.Opus.find( { $and: [ { composer: req.query.composer }, { instrumentation: { $elemMatch: { $eq: req.query.instrumentation } } } ] } )
-        .then(opuses => {
-            res.render('opuses/opus-index', { 
-                opuses: opuses,
-                filtered: true,
-                requestInProgress: 'yes'
-            })
-        })
-    }
+})
+
+//show rt: 'clear cart' btn clicked: empty array & return home
+router.post('/clear-cart', (req, res) => {
+    requestedRepertoire = [];
+    console.log('cleared cart: ', requestedRepertoire);
+    res.redirect('/');
+})
+
+//show rt: 'done adding repertoire' btn clicked: pass array to req-new form
+router.get('/done-adding', (req, res) => {
+    console.log('done adding: ', requestedRepertoire);
+    res.render('client-requests/client-request-newform', {
+        requestList: requestedRepertoire
+    })
 })
 
 /* ----------------------------------------- ADMIN-ONLY ROUTES ----------------------------------------- */
