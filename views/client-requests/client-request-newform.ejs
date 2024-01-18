@@ -55,7 +55,7 @@
             <br>
             <br>
         </div>
-        <% if (requestMade === "yes") { %>
+        <%# if (requestInProgress === "yes") { %>
             <div>
                 <p>Requested repertoire:</p>
                 <br>
@@ -78,9 +78,13 @@
                 <% } %>
             </div>
             <br>
-        <% } %>
+        <%# } %>
         <div>
+        <% if (requestInProgress === 'yes') { %>
+            <a id="back-to-index" href="/opuses/<%= clientRequest._id %>"><button type='button' class='btn'>Add more repertoire</button></a>
+        <% } else { %>
             <a id="back-to-index" href="/opuses"><button type='button' class='btn'>Add more repertoire</button></a>
+        <% } %>
             <input type="submit" id='submit-btn' value="Submit Request">
         </div>
     </form>

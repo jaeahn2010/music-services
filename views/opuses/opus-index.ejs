@@ -54,7 +54,7 @@
     <% for (opus of opuses) { %>
         <section class="each-opus">
             <div class="opus-upper">
-                <form method="POST" action="/opuses/add-to-request/<%= requestMade %>/<%= opus._id %>?_method=PUT">
+                <form method="POST" action="/opuses/add-to-request/<%= requestInProgress %>/<%= opus._id %>?_method=PUT">
                     <input class="cart" type="image" src="/assets/cart.png" value="Add to Request"/>
                 </form>
                 <a class="opus-link" href="/opuses/<%= opus._id %>">
@@ -90,7 +90,7 @@
             <div class="opus-lower">
                 <% for (movement of opus.movements) { %>
                 <div class="each-movement">
-                    <form method="POST" action="/opuses/add-to-request/<%= requestMade %>/<%= opus._id %>/<%= opus.movements.indexOf(movement) %>?_method=PUT">
+                    <form method="POST" action="/opuses/add-to-request/<%= requestInProgress %>/<%= opus._id %>/<%= opus.movements.indexOf(movement) %>?_method=PUT">
                         <input class="cart" type="image" src="/assets/cart.png" value="Add to Request"/>
                     </form>
                     <p class="movement-title"><%= movement.movementTitle %></p>

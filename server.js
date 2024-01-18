@@ -34,10 +34,10 @@ app.use(connectLiveReload());
 // body parser for POST/PUT/PATCH rts:
 // take incoming strs from body (url encoded) -> parse them into obj to be accessed in req param as req.body
 app.use(express.urlencoded({ extended: true }));
-//interpret POST reqs from browser as diff req type: DELETE/PUT/etc
+//interpret POST reqs from browser as DELETE/PUT/etc
 app.use(methodOverride('_method'));
 
-//mount routes
+//mount rts
 app.get('/', function (req, res) {
     res.render('home');
 });
@@ -46,7 +46,7 @@ app.get('/about', function (req, res) {
     res.render('about');
 });
 
-// client-requests collection seeded (reset to orig seed) when GET req sent to '/seed'
+// opus collection seeded (reset to orig seed) w/ '/seed'
 app.get('/seed', function (req, res) {
     db.Opus.deleteMany({})
         .then(removedOpuses => {

@@ -6,64 +6,54 @@ const router = express.Router()
 const db = require('../models')
 const clientRequest = require('../models/client-request')
 
-let clientRequestsList = [];
-
 //all rts
-//idx rt (GET/Read): disp all reqs
+//idx rt: "my reqs" btn clicked: disp all reqs
 router.get('/', function (req, res) {
     db.ClientRequest.find({})
         .then(clientRequests => res.render('client-requests/client-request-index', { clientRequests: clientRequests }))
 })
 
-//create rt (POST/Create): receive POST req sent from new rt, creates new req doc w/ form data, redirect to show pg of new req
-// router.post('/', (req, res) => {
-//     req.body.requestedRepertoire = JSON.parse(req.body.requestedRepertoire);
-//     db.ClientRequest.create(req.body)
-//         .then(clientRequest => {
-//             clientRequestsList.push(clientRequest);
-//             res.render('client-requests/client-request-index', {clientRequestsList: clientRequestsList})
-//         })
-//     })
+//new rt: "add new req" btn clicked: form to be filled out to create new req
+router.get('/new', (req, res) => {
+    db.Opus.find({})
+        .then(opuses => res.render('client-requests/client-request-newform', { opuses: opuses, requestInProgress: "yes", allRequests: [] }))
+})
 
+//create rt: "submit new req" btn clicked: create new req w/ form data, redirect -> req-idx pg
 router.post('/', (req, res) => {
     req.body.requestedRepertoire = JSON.parse(req.body.requestedRepertoire);
     db.ClientRequest.create(req.body)
         .then(() => {
             db.ClientRequest.find({})
-                .then(clientRequests => res.render('client-requests/client-request-index', { clientRequests: clientRequests}))
+                .then(clientRequests => res.render('client-requests/client-request-index', { clientRequests: clientRequests, requestInProgress: "no" }))
         })
     })
 
-//new rt (GET/Read): form to be filled out by user to POST new req
-router.get('/new', (req, res) => {
-    db.Opus.find({})
-        .then(opuses => res.render('client-requests/client-request-newform', { opuses: opuses, isNewRequest: true, requestMade: "no" }))
-})
-
-//show rt (GET/Read): disp spec req w/ url param
+//show rt: disp spec req - not nec?
 router.get('/:id', function (req, res) {
     db.ClientRequest.find({})
-        .then(clientRequests => res.render('client-requests/client-request-index', { clientRequests: clientRequests }))
+        .then(clientRequests => res.render('client-requests/client-request-index', { clientRequests: clientRequests, requestInProgress: "yes" }))
         .catch(() => res.render('404'))
 })
 
-//update rt (PUT/Update): receive PUT req from edit rt, edit spec req doc w/ form data, redirect to show pg of updated req
+//edit rt: "edit req" btn clicked: form to be used to edit spec req
+router.get('/:id/edit', (req, res) => {
+    db.ClientRequest.findById(req.params.id)
+        .then(clientRequest => res.render('client-requests/client-request-edit', { clientRequest: clientRequest, requestInProgress: "yes" }))
+})
+
+//update rt: "apply changes" btn clicked: edit spec req w/ form data, redirect -> req-idx pg
 router.put('/:id', (req, res) => {
     db.ClientRequest.findByIdAndUpdate(req.params.id, req.body, { new: true })
         .then(() => res.redirect('/client-requests'))
 })
 
-//destroy rt (DELETE/Delete): del req doc w/ url param
+//destroy rt: "delete req" btn clicked: del req
 router.delete('/:id', (req, res) => {
     db.ClientRequest.findByIdAndDelete(req.params.id)
         .then(() => res.redirect('/client-requests'))
 })
 
-//edit rt (GET/Read): form to be used by user to PUT (edit) props of existing req
-router.get('/:id/edit', (req, res) => {
-    db.ClientRequest.findById(req.params.id)
-        .then(clientRequest => res.render('client-requests/client-request-edit', { clientRequest: clientRequest }))
-})
 
 //export ^rts to be accessible in 'server.js'
 module.exports = router
