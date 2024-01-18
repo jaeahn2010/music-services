@@ -1,0 +1,64 @@
+h2 {
+    text-align: center;
+}
+
+.opus-newform-title, .opus-newform-composer, .opus-newform-price, .opus-newform-description {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    width: 70%;
+}
+
+.opus-newform-instrumentation, .instrumentation {
+    margin: 10px 0;
+}
+
+.checkbox {
+    margin-left: 20px;
+}
+
+.opus-newform-price span {
+    padding-left: 60px;
+}
+
+.opus-newform-price input {
+    margin-left: 0;
+}
+
+#opus-newform-movements {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#opus-newform-movements div {
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    width: 70%;
+}
+
+.opus-newform-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+#add-movement-btn, #submit-btn {
+    border-radius: 10px;
+    margin: 20px;
+    padding: 10px;
+}
+
+#add-movement-btn:hover, #submit-btn:hover {
+    background-color: rgb(215, 215, 0);
+    box-shadow: 3px 3px 5px rgb(100, 100, 0);
+    color: rgb(50, 50, 50);
+}

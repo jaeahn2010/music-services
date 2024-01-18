@@ -8,22 +8,16 @@
 
 <body>
     <%- include('../partials/nav.ejs') %>
-
+    <h3>New Repertoire Added!</h3>
     <section class="details-left">
-        <p><%= opus.title %></p>
-        <p><%= opus.composer %></p>
-        <p><%= opus.instrumentation %></p>
-        <p>$<%= opus.price %></p>
-        <p>
-        <% for (movement of opus.movements) { %>
-            <span>
-                <%= movement.movementTitle %>
-            </span>
-            <span>
-                $<%= movement.price %>
-            </span>
+        <p>Title: <%= opus.title %></p>
+        <p>Composer: <%= opus.composer %></p>
+        <p>Instrumentation: <%= opus.instrumentation %></p>
+        <p>Price: $<%= opus.price %></p>
+        <% for (let i = 0; i < opus.movements[0].movementTitle.length; i++) { %>
+            <p>Movement <%= i + 1 %>: <%= opus.movements[0].movementTitle[i] %></p>
+            <p>Price: $<%= opus.movements[0].movementPrice[i] %></p>
         <% } %>
-        </p>
     </section>
     <section class="details-middle">
         <h3>Description</h3>
