@@ -18,7 +18,7 @@
 .each-opus {
     border: 1px solid white;
     border-radius: 10px;
-    margin: 10px;
+    margin: 20px;
 }
 
 .each-opus * {
@@ -37,8 +37,6 @@
     margin: 0 30px;
 }
 
-
-
 .opus-link {
     text-decoration: none;
     width: 95%;
@@ -55,6 +53,10 @@
 
 .opus-middle {
     text-align: center;
+}
+
+.opus-lower {
+    padding: 10px;
 }
 
 .each-movement {
@@ -83,6 +85,7 @@
     background-color: rgb(180, 180, 180);
     border: 2px solid white;
     border-radius: 10px;
+    margin: 10px 5px 5px 10px;
     padding: 10px 12px 10px 6px;
     width: 30px;
 }

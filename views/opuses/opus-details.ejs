@@ -9,31 +9,73 @@
 <body>
     <%- include('../partials/nav.ejs') %>
     <h3>Repertoire Details</h3>
-    <section class="details-left">
-        <p>Title: <%= opus.title %></p>
-        <p>Composer: <%= opus.composer %></p>
-        <p>Instrumentation: <%= opus.instrumentation %></p>
-        <p>Price: $<%= opus.price %></p>
-        <% for (let i = 0; i < opus.movements[0].movementTitle.length; i++) { %>
-            <p>Movement <%= i + 1 %>: <%= opus.movements[0].movementTitle[i] %></p>
-            <p>Price: $<%= opus.movements[0].movementPrice[i] %></p>
-        <% } %>
+    <section class="details-top">
+        <table>
+            <tr>
+                <td>Title: </td>
+                <td><%= opus.title %></td>
+            </tr>
+            <tr>
+                <td>Composer: </td>
+                <% let splitName = opus.composer.split('-'); %>
+                <% let formattedName = ''; %>
+                <% for (let i = 0; i < splitName.length; i++) { %>
+                    <% if (i === 0) { %>
+                        <% formattedName += splitName[i] + ', ' %> 
+                    <% } else { %>
+                        <% formattedName += splitName[i] + ' '%>
+                    <% } %>
+                <% } %>
+                <td><%= formattedName %></td>
+            </tr>
+            <tr>
+                <td>Instrumentation: </td>
+                <% console.log(opus.instrumentation) %>
+                <% let instrumentationRow = '' %>
+                <% for (let i = 0; i < opus.instrumentation.length; i++) { %>
+                    <% if (i < opus.instrumentation.length - 1) { %>
+                        <% instrumentationRow += opus.instrumentation[i] + ', ' %> 
+                    <% } else { %>
+                        <% instrumentationRow += opus.instrumentation[i] %>
+                    <% } %>
+                <% } %>
+                <td> <%= instrumentationRow %> </td>
+            </tr>
+            <tr>
+                <td>Price: </td>
+                <td> $<%= opus.price %> </td>
+            </tr>
+            <% if (opus.movements.length > 0) { %>
+                <% for (let i = 0; i < opus.movements.length; i++) { %>
+                <tr>
+                    <td>Movement <%= i + 1 %>:</td>
+                    <td><%= opus.movements[i].movementTitle %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>$<%= opus.movements[i].movementPrice %></td>
+                </tr>
+                <% } %>
+            <% } %>
+        </table>
     </section>
     <section class="details-middle">
         <h3>Description</h3>
-        <% if (opus.description === undefined) { %>
-            <p>None provided</p>
+        <% if (opus.description === undefined || opus.description === '') { %>
+            <p class="description">None provided</p>
         <% } else  { %>
-            <p><%= opus.description %></p>
+            <p class="description"><%= opus.description %></p>
         <% } %>
     </section>
-    <section class="details-right">
+    <section class="details-bottom">
         <a href="/opuses"><button class='btn'>Go back to full repertoire list</button></a>
     </section>
-    <button><a href="/opuses/<%= opus._id %>/edit">Edit this Repertoire</a></button>
-    <form method="POST" action="/opuses/<%= opus._id %>?_method=DELETE">
-        <input type="submit" value="Delete this Repertoire"/>
-    </form>
+    <div class="admin-only">
+        <a href="/opuses/<%= opus._id %>/edit"><button class="btn">Edit this Repertoire</button></a>
+        <form method="POST" action="/opuses/<%= opus._id %>?_method=DELETE">
+            <input class="btn" type="submit" value="Delete this Repertoire"/>
+        </form>
+    </div>
 </body>
 
 </html>

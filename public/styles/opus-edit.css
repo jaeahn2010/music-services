@@ -1,0 +1,35 @@
+h2 {
+    text-align: center;
+}
+
+table {
+    margin: 20px 0;
+    width: 100%;
+}
+
+td {
+    padding: 10px;
+}
+
+td:first-child {
+    text-align: right;
+}
+
+td:last-child {
+    padding-left: 20px;
+}
+
+div {
+    text-align: center;
+}
+
+#submit-btn {
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+#submit-btn:hover {
+    background-color: rgb(215, 215, 0);
+    box-shadow: 3px 3px 5px rgb(100, 100, 0);
+    color: rgb(50, 50, 50);
+}

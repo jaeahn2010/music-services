@@ -1,0 +1,45 @@
+h3 {
+    text-align: center;
+}
+
+.details-top, .description {
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.description {
+    text-align: justify;
+}
+
+.details-top table {
+    width: 100%;
+}
+
+.details-bottom {
+    margin: 30px;
+    text-align: center;
+}
+
+.details-bottom .btn {
+    padding: 10px;
+}
+
+.admin-only {
+    margin: 10px;
+    text-align: center;
+}
+
+.admin-only .btn {
+    margin: 10px 0;
+}
+
+.btn {
+    border-radius: 10px;
+}
+
+.btn:hover {
+    background-color: rgb(215, 215, 0);
+    box-shadow: 3px 3px 5px rgb(100, 100, 0);
+    color: rgb(50, 50, 50);
+}
