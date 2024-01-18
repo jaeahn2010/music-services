@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head.ejs', {title: 'GLVMS | Your Request Details'}) %>
+    <link rel="stylesheet" href="/styles/client-request-details.css">
+</head>
+
+<body>
+    <%- include('../partials/nav.ejs') %>
+    <h3>Your request details</h3>
+    <section class="client-request-details">
+        <div>
+            <div class="fixed-details-left">
+                <p>Request made by:</p>
+                <p><strong><%= clientRequest.clientName %></strong></p>
+                <p>Instrument:</p>
+                <p><strong><%= clientRequest.clientInstrument %></strong></p>
+            </div>
+            <div class="fixed-details-right">
+                <p>Event: <strong><%= clientRequest.eventTitle %></strong></p>
+                <p>Date & Time: <strong><%= clientRequest.eventDate %></strong></p>
+                <p>Location:</p>
+                <p><strong><%= clientRequest.eventLocation.address %></strong></p>
+                <p><strong><%= clientRequest.eventLocation.city %>, <%= clientRequest.eventLocation.state %></strong></p>
+                <p><strong><%= clientRequest.eventLocation.zip %></strong></p>
+            </div>
+        </div>
+    </section>
+    <section class="rep-list">
+        <p>Requested repertoire:</p>
+        <% console.log(clientRequest.requestedRepertoire); %>
+        <% for (let rep of clientRequest.requestedRepertoire) { %>
+        <div>
+            <p>Title: <%= rep.title %></p>
+            <p>Composer: <%= rep.composer %></p>
+            <p>Instrumentation: 
+            <% for (let instrument of rep.instrumentation) { %>
+            <span><%= instrument %> </span>
+            <% } %>
+            </p>
+            <p>Price: $ <%= rep.price %></p>
+        </div>
+        <% } %>
+    </section>
+    <button><a href="/client-requests">See all requests</a></button>
+    <button><a href="/client-requests/<%= clientRequest._id %>/edit">Edit this Request</a></button>
+    <form method="POST" action="/client-requests/<%= clientRequest._id %>?_method=DELETE">
+        <input type="submit" value="Delete this Request"/>
+    </form>
+    <%- include('../partials/footer.ejs') %>
+</body>
+
+</html>

@@ -16,7 +16,7 @@ const clientRequestSchema = new mongoose.Schema({
     },
     comments: {type: String},
     requestedRepertoire: [opusSchema.schema]
-})
+}, {timestamps: true})
 
 //schema -> models/index.js
 module.exports = mongoose.model('ClientRequest', clientRequestSchema)

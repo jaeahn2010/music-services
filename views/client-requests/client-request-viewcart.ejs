@@ -42,7 +42,7 @@
     <form method="GET" action="/opuses">
         <input class="btn" type="submit" value="Add More Repertoire"/>
     </form>
-    <form method="GET" action="/opuses/done-adding">
+    <form method="POST" action="/opuses/done-adding?_method=PUT">
         <input class="btn" type="submit" value="Done Adding Repertoire"/>
     </form>
     <%- include('../partials/footer.ejs') %>

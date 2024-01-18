@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <%- include('../partials/head.ejs', {title: 'GLVMS | Your Request'}) %>
+    <%- include('../partials/head.ejs', {title: 'GLVMS | All Requests'}) %>
     <link rel="stylesheet" href="/styles/client-request-index.css">
 </head>
 
@@ -12,41 +12,22 @@
         <p style="text-align: center">No requests have yet been made in this session.</p>
     <% } else { %>
         <% for (clientRequest of clientRequests) { %>
-            <section class="client-request-details">
+            <section class="each-client-request">
                 <div>
-                    <div class="fixed-details-left">
-                        <p>Request made by:</p>
-                        <p><strong><%= clientRequest.clientName %></strong></p>
-                        <p>Instrument:</p>
-                        <p><strong><%= clientRequest.clientInstrument %></strong></p>
-                    </div>
-                    <div class="fixed-details-right">
-                        <p>Event: <strong><%= clientRequest.eventTitle %></strong></p>
-                        <p>Date & Time: <strong><%= clientRequest.eventDate %></strong></p>
-                        <p>Location:</p>
-                        <p><strong><%= clientRequest.eventLocation.address %></strong></p>
-                        <p><strong><%= clientRequest.eventLocation.city %>, <%= clientRequest.eventLocation.state %></strong></p>
-                        <p><strong><%= clientRequest.eventLocation.zip %></strong></p>
-                    </div>
+                    <p>Request made by:</p>
+                    <p><strong><%= clientRequest.clientName %></strong></p>
+                    <p>Instrument:</p>
+                    <p><strong><%= clientRequest.clientInstrument %></strong></p>
+                </div>
+                <div>
+                    <p>Event: <strong><%= clientRequest.eventTitle %></strong></p>
+                    <p>Date & Time: <strong><%= clientRequest.eventDate %></strong></p>
+                </div>
+                <div>
+                    <p>Request created at: <%= clientRequest.createdAt %></p>
+                    <p>Request last updated at: <%= clientRequest.updatedAt %></p>
                 </div>
             </section>
-            <section class="rep-list">
-                <p>Requested repertoire:</p>
-                <% console.log(clientRequest.requestedRepertoire); %>
-                <% for (let rep of clientRequest.requestedRepertoire) { %>
-                <div>
-                    <p>Title: <%= rep[0].title %></p>
-                    <p>Composer: <%= rep[0].composer %></p>
-                    <p>Instrumentation: 
-                    <% for (let instrument of rep[0].instrumentation) { %>
-                    <span><%= instrument %> </span>
-                    <% } %>
-                    </p>
-                    <p>Price: $ <%= rep[0].price %></p>
-                </div>
-                <% } %>
-            </section>
-            <button><a href="/client-requests/<%= clientRequest._id %>/edit">Edit this Request</a></button>
             <form method="POST" action="/client-requests/<%= clientRequest._id %>?_method=DELETE">
                 <input type="submit" value="Delete this Request"/>
             </form>

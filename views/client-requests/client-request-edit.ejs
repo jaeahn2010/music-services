@@ -9,7 +9,7 @@
 <body>
     <%- include('../partials/nav.ejs') %>
 
-    <h2 class="client-edit-title">Edit Your Request</h2>
+    <h2 class="client-edit-title">Edit Event Details</h2>
     <form method="POST" action="/client-requests/<%= clientRequest._id %>?_method=PUT">
         <div>
             <label for="clientName">Your Name:</label>
@@ -66,20 +66,17 @@
             <p>Requested repertoire:</p>
             <% for (let rep of clientRequest.requestedRepertoire) { %>
             <div class="each-requested-repertoire">
-                <p>Title: <%= rep[0].title %></p>
-                <p>Composer: <%= rep[0].composer %></p>
+                <p>Title: <%= rep.title %></p>
+                <p>Composer: <%= rep.composer %></p>
                 <p>Instrumentation: 
-                <% for (let instrument of rep[0].instrumentation) { %>
+                <% for (let instrument of rep.instrumentation) { %>
                 <span><%= instrument %> </span>
                 <% } %>
                 </p>
-                <p>Price: $ <%= rep[0].price %></p>
+                <p>Price: $ <%= rep.price %></p>
             </div>
             <% } %>
         </section>
-        <div>
-            <a id="back-to-index" href="/opuses/<%= clientRequest._id %>"><button type='button' class='btn'>Add more repertoire</button></a>
-        </div>
         <div>
             <input id='submit-btn' type="submit" value="Submit Revised Request">
         </div>

@@ -32,14 +32,18 @@
             </tr>
             <tr>
                 <td><label for="eventDate">Date & Time:</label></td>
-                <td></td><input type="datetime-local" id="eventDate" name="eventDate" required></td>
+                <td><input type="datetime-local" id="eventDate" name="eventDate" required></td>
             </tr>
             <tr><td>Event location:</td></tr>
             <tr>
                 <td><label for="eventAddress">Address:</label></td>
                 <td><input type="text" id="eventAddress" name="eventLocation[address]" required></td>
+            </tr>
+            <tr>
                 <td><label for="eventCity">City:</label></td>
                 <td><input type="text" id="eventCity" name="eventLocation[city]" required></td>
+            </tr>
+            <tr>
                 <td><label for="eventState">State:</label></td>
                 <td><select id="eventState" name="eventLocation[state]">
                     <% let states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'Washington, D.C.', 'West Virginia', 'Wisconsin', 'Wyoming']; %>
@@ -48,8 +52,14 @@
                         <option value=<%= state %>><%= state %></option>
                     <% } %>
                 </select></td>
+            </tr>
+            <tr>
                 <td><label for="eventZip">Zip code:</label></td>
                 <td><input type="number" id="eventZip" name="eventLocation[zip]" maxlength="5" required></td>
+            </tr>
+            <tr>
+                <td><label for="comments">Comments:</label></td>
+                <td><textarea id="comments" name="comments" rows=10></textarea></td>
             </tr>
             <tr>
                 <td><p>Requested repertoire:</p></td>
@@ -74,11 +84,6 @@
         </table>
         <br>
         <div>
-        <% if (requestInProgress === 'yes') { %>
-            <a id="back-to-index" href="/opuses/<%= clientRequest._id %>"><button type='button' class='btn'>Add more repertoire</button></a>
-        <% } else { %>
-            <a id="back-to-index" href="/opuses"><button type='button' class='btn'>Add more repertoire</button></a>
-        <% } %>
             <input type="submit" id='submit-btn' value="Submit Request">
         </div>
     </form>

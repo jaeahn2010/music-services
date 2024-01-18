@@ -149,7 +149,7 @@ router.post('/clear-cart', (req, res) => {
 })
 
 //show rt: 'done adding repertoire' btn clicked: pass array to req-new form
-router.get('/done-adding', (req, res) => {
+router.put('/done-adding', (req, res) => {
     console.log('done adding: ', requestedRepertoire);
     res.render('client-requests/client-request-newform', {
         requestList: requestedRepertoire
