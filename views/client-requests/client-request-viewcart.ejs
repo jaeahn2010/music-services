@@ -9,21 +9,43 @@
 <body>
     <%- include('../partials/nav.ejs') %>
     <h3>Your cart</h3>
+    <% if (cart.length === 0) { %>
+        <p class="empty-cart-msg">Your cart is empty.</p>
+    <% } %>
+    <div class="cart-contents">
     <% let i = 0 %>
     <% for (opus of cart) { %>
-        <p><%= opus.composer %></p>
-        <p><%= opus.title %></p>
-        <% if (opus.movements.length > 0) { %>
-            <p>movements:
-            <% for (movement of opus.movements) { %>
-                <p><%= movement.movementTitle %></p>
-                <p>$<%= movement.movementPrice %></p>
+        <div class="each-item">
+        <% let splitName = opus.composer.split('-'); %>
+        <% let formattedName = ''; %>
+        <% for (let i = 0; i < splitName.length; i++) { %>
+            <% if (i === 0) { %>
+                <% formattedName += splitName[i] + ', ' %> 
+            <% } else { %>
+                <% formattedName += splitName[i] + ' '%>
             <% } %>
-            </p>
         <% } %>
-        <p><%= opus.instrumentation %></p>
-        <% if (opus.movements.length === opus.movements.length) { %>
-            <p>$<%= opus.price %></p>
+        <p><strong>Title: </strong><%= opus.title %></p>
+        <p><strong>Composer: </strong><%= formattedName %></p>
+        <% if (opus.movements.length > 0) { %>
+            <p><strong>Requested movements:</strong></p>
+            <ul>
+            <% for (movement of opus.movements) { %>
+                <li><%= movement.movementTitle %> &#40$<%= movement.movementPrice %>&#41</li>
+            <% } %>
+            </ul>
+        <% } %>
+        <p><strong>Instrumentation:</strong>
+        <% for (let i = 0; i < opus.instrumentation.length; i++) { %>
+            <% if (i === opus.instrumentation.length - 1) { %>
+                <span><%= opus.instrumentation[i] %></span>
+            <% } else { %>
+                <span><%= opus.instrumentation[i] %>, </span>
+            <% } %>
+        <% } %>
+        </p>
+        <% if (opus.isMovement === false) { %>
+            <p><strong>Price: </strong>$<%= opus.price %></p>
         <% } %>
         <% if (opus.isMovement === false) { %>
             <form method="POST" action="/opuses/modify-request/<%= opus._id %>?_method=PUT">
@@ -35,17 +57,20 @@
             </form>
         <% } %>
         <% i++; %>
+        </div>
     <% } %>
-    <form method="POST" action="/opuses/clear-cart">
-        <input class="btn" type="submit" value="Clear Cart and Start Over"/>
-    </form>
+    </div>
     <form method="GET" action="/opuses">
         <input class="btn" type="submit" value="Add More Repertoire"/>
     </form>
-    <form method="POST" action="/opuses/done-adding?_method=PUT">
-        <input class="btn" type="submit" value="Done Adding Repertoire"/>
-    </form>
-    <%- include('../partials/footer.ejs') %>
+    <% if (cart.length > 0) { %>
+        <form method="POST" action="/opuses/clear-cart">
+            <input class="btn" type="submit" value="Clear Cart and Start Over"/>
+        </form>
+        <form method="POST" action="/opuses/done-adding?_method=PUT">
+            <input class="btn" type="submit" value="Done Adding Repertoire"/>
+        </form>
+    <% } %>
 </body>
 
 </html>

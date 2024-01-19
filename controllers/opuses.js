@@ -62,6 +62,14 @@ router.get('/filter', function (req, res) {
     }
 })
 
+/* ----------------------------------------- ADMIN-ONLY ROUTES ----------------------------------------- */
+//need to place this above the next show rt b/c control flow
+//new rt: 'add new repertoire' btn clicked: form to be filled to create new opus
+router.get('/new', (req, res) => {
+    res.render('opuses/opus-newform')
+})
+
+/* ----------------------------------------- USER & ADMIN ROUTES ----------------------------------------- */
 //show rt: spec 'opus link' clicked: show spec opus on details pg
 router.get('/:id', function (req, res) {
     db.Opus.findById(req.params.id)
@@ -150,17 +158,12 @@ router.post('/clear-cart', (req, res) => {
 
 //show rt: 'done adding repertoire' btn clicked: pass array to req-new form
 router.put('/done-adding', (req, res) => {
-    console.log('done adding: ', requestedRepertoire);
     res.render('client-requests/client-request-newform', {
         requestList: requestedRepertoire
     })
 })
 
 /* ----------------------------------------- ADMIN-ONLY ROUTES ----------------------------------------- */
-//new rt: 'add new repertoire' btn clicked: form to be filled to create new opus
-router.get('/new', (req, res) => {
-    res.render('opuses/opus-newform')
-})
 
 //create rt: 'submit new repertoire' btn clicked: new rep added; redirect to its details pg
 router.post('/', (req, res) => {

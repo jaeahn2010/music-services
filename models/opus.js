@@ -11,7 +11,7 @@ const opusSchema = new mongoose.Schema({
         movementPrice: {type: Number}
     }],
     instrumentation: [{type: String, required: true}],
-    price: {type: Number, required: true},
+    price: {type: Number, required: true, min: 0, max: 1000},
     description: {type: String}
 })
 

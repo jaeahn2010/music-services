@@ -25,11 +25,82 @@
             <h3>How use this website</h3>
             <p>As a music client, booking an event has never been more clear and straightforward! Simply click the "See Repertoire List" to browse the list of all available repertoires, which includes both solo and chamber works. Add the desired repertoire to your request by clicking on the cart button and fill in the event details. Click submit, then the information will be sent directly to the performer for confirmation. The performer will contact you directly to discuss any further details and payment information.</p>
         </section>
-        <section class="carousel">
-            <p>Carousel goes here</p>
-        </section>
     </main>
+    <section class="carousel">
+        <div class="photo">
+            <img src="/assets/music-1.jpg">
+        </div>
+        <div class="photo">
+            <img src="/assets/music-2.jpg">
+        </div>
+        <div class="photo">
+            <img src="/assets/music-3.jpg">
+        </div>
+        <div class="photo">
+            <img src="/assets/music-4.jpg">
+        </div>
+        <div class="photo">
+            <img src="/assets/music-5.jpg">
+        </div>
+        <div class="photo">
+            <img src="/assets/music-6.jpg">
+        </div>
+        <div class="photo">
+            <img src="/assets/music-7.jpg">
+        </div>
+        <div class="photo">
+            <img src="/assets/music-8.jpg">
+        </div>
+        <div class="photo">
+            <img src="/assets/music-9.jpg">
+        </div>
+        <div class="photo">
+            <img src="/assets/music-10.jpg">
+        </div>
+        <p id="prev-btn">&#8678</a>
+        <p id="next-btn">&#8680</a>
+        <br>
+    </section>
+    <script>
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        let photo = document.getElementsByClassName('photo');
 
+        prevBtn.addEventListener('click', scroll);
+        nextBtn.addEventListener('click', scroll);
+
+        let photoIdx = 1;
+        showPhotos(photoIdx);
+
+        //enable arrows
+        function scroll(evt) {
+            let direction = 0;
+            if (evt.target.id === 'prev-btn') {
+                direction = -1;
+            } else if (evt.target.id === 'next-btn') {
+                direction = 1;
+            }
+            photoIdx += direction;
+            showPhotos(photoIdx);
+        }
+
+        function showPhotos(index) {
+            //allow last photo -> first photo
+            if (index > photo.length) {
+                photoIdx = 1;
+            }
+            //allow first photo -> last photo
+            if (index < 1) {
+                photoIdx = photo.length;
+            }
+            //default no display
+            for (let i = 0; i < photo.length; i++) {
+                photo[i].style.display = "none";
+            }
+            //display current photo
+            photo[photoIdx - 1].style.display = "block";
+        }
+    </script>
     <%- include('./partials/footer.ejs') %>
 </body>
 

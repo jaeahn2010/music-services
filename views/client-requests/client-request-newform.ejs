@@ -20,7 +20,7 @@
                 <td><label for="clientInstrument">Your instrument:</label></td>
                 <td><select id="clientInstrument" name="clientInstrument">
                     <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
-                    <option value="choose-category" disabled selected>Choose a category</option>
+                    <option value="choose-category" disabled selected>Choose your instrument</option>
                     <% for (instrument of instrumentsList) { %>
                         <option value=<%= instrument %>><%= instrument %></option>
                     <% } %>
@@ -34,7 +34,7 @@
                 <td><label for="eventDate">Date & Time:</label></td>
                 <td><input type="datetime-local" id="eventDate" name="eventDate" required></td>
             </tr>
-            <tr><td>Event location:</td></tr>
+            <tr><td class="table-subsection"><p>Event location:</p></td></tr>
             <tr>
                 <td><label for="eventAddress">Address:</label></td>
                 <td><input type="text" id="eventAddress" name="eventLocation[address]" required></td>
@@ -61,25 +61,38 @@
                 <td><label for="comments">Comments:</label></td>
                 <td><textarea id="comments" name="comments" rows=10></textarea></td>
             </tr>
-            <tr>
-                <td><p>Requested repertoire:</p></td>
-                <input type="hidden" id="requestedRepertoire" name="requestedRepertoire" value="<%= JSON.stringify(requestList) %>">
-                <% for (requestedOpus of requestList) { %>
-                    <p><%= requestedOpus.composer %></p>
-                    <p><%= requestedOpus.title %></p>
-                    <% if (requestedOpus.movements.length > 0) { %>
-                        <p>movements:
-                        <% for (movement of requestedOpus.movements) { %>
-                            <p><%= movement.movementTitle %></p>
-                            <p>$<%= movement.movementPrice %></p>
-                        <% } %>
-                        </p>
-                    <% } %>
-                    <p><%= requestedOpus.instrumentation %></p>
-                    <% if (requestedOpus.movements.length === opus.movements.length) { %>
-                        <p>$<%= requestedOpus.price %></p>
-                    <% } %>
+        </table>
+        <p class="table-subsection">Requested repertoire:</p>
+        <input type="hidden" id="requestedRepertoire" name="requestedRepertoire" value="<%= JSON.stringify(requestList) %>">
+        <% for (requestedOpus of requestList) { %>
+            <% let splitName = requestedOpus.composer.split('-'); %>
+            <% let formattedName = ''; %>
+            <% for (let i = 0; i < splitName.length; i++) { %>
+                <% if (i === 0) { %>
+                    <% formattedName += splitName[i] + ', ' %> 
+                <% } else { %>
+                    <% formattedName += splitName[i] + ' '%>
                 <% } %>
+            <% } %>
+            <p><%= formattedName %></p>
+                </tr>
+                <tr>
+                    <td><%= requestedOpus.title %></td>
+                </tr>
+                <% if (requestedOpus.movements.length > 0) { %>
+                    <% for (movement of requestedOpus.movements) { %>
+                    <tr>
+                        <td><%= movement.movementTitle %></td>
+                        <td>$<%= movement.movementPrice %></td>
+                    </tr>
+                    <% } %>
+                <% } %>  
+                <% if (requestedOpus.movements.length === opus.movements.length) { %>
+                <tr>
+                    <td>$<%= requestedOpus.price %></td>
+                </tr>
+                <% } %>
+            <% } %>
             </tr>
         </table>
         <br>
@@ -87,8 +100,6 @@
             <input type="submit" id='submit-btn' value="Submit Request">
         </div>
     </form>
-
-    <%- include('../partials/footer.ejs') %>
 </body>
 
 </html>

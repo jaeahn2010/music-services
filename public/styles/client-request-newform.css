@@ -1,3 +1,26 @@
 h2 {
     text-align: center;
 }
+
+td:first-child {
+    text-align: right;
+}
+
+td {
+    height: 3vh;
+}
+
+input, textarea {
+    margin-left: 20px;
+    width: 200px;
+}
+
+select {
+    margin-left: 20px;
+    width: 207px;
+}
+
+.table-section {
+    height: 6vh;
+    text-align: center;
+}

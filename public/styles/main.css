@@ -4,6 +4,10 @@
     font-family: "Optima", sans-serif;
 }
 
+h3 {
+    text-align: center;
+}
+
 .glvms-title, .about-title, footer {
     text-align: center;
 }
@@ -13,12 +17,14 @@
     margin: 15px;
 }
 
+/* nav */ 
 nav {
     margin: 40px 0;
     text-align: center;
 }
 
 nav a {
+    font-size: 14px;
     margin: 7vw;
 }
 
@@ -26,6 +32,7 @@ nav a:hover {
     color: rgb(215, 215, 0);
 }
 
+/* footer */ 
 footer nav {
     font-size: 12px;
 }
@@ -34,6 +41,7 @@ footer nav {
     font-size: 10px;
 }
 
+/* about */
 .about-title h3, .about-title h4 {
     margin: 0;
 }
@@ -42,4 +50,49 @@ footer nav {
     line-height: 1.5;
     margin: 20px;
     text-align: justify;
+}
+
+.carousel {
+    max-width: 600px;
+    position: relative;
+    margin: auto;
+}
+
+.photo {
+    text-align: center;
+    user-select: none;
+}
+
+.photo img {
+    animation: fade 1.5s;
+    border-radius: 35px;
+    padding: 15px;
+    height: 20vh;
+    width: auto;
+}
+
+#prev-btn, #next-btn {
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: -22px;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    transition: 1s ease;
+    user-select: none;
+    width: auto;
+}
+#prev-btn:hover, #next-btn:hover {
+    transform: scale(1.5);
+}
+#next-btn {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+@keyframes fade {
+    from {opacity: 0}
+    to {opacity: 100}
 }

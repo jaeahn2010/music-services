@@ -9,7 +9,10 @@
 <body>
     <%- include('../partials/nav.ejs') %>
     <% if (clientRequests.length < 1) { %>
-        <p style="text-align: center">No requests have yet been made in this session.</p>
+    <div class="no-requests">
+        <p>No requests have yet been made in this session.</p>
+        <p>Please click the "See Repertoire List" to begin your request.</p>
+    </div>
     <% } else { %>
         <% for (clientRequest of clientRequests) { %>
             <section class="each-client-request">

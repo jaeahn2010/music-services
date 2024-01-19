@@ -51,6 +51,7 @@
             <a id="filter-reset" href="/opuses"><button type='button' class='btn'>Go back</button></a>
         </div>
     <% } %>
+    <main>
     <% for (opus of opuses) { %>
         <section class="each-opus">
             <div class="opus-upper">
@@ -103,6 +104,7 @@
             <% } %>     
         </section>
     <% } %>
+    </main>
     <script defer>
         const mvmtBtn = document.getElementsByClassName('movements-button');
         const opusLower = document.getElementsByClassName('opus-lower');

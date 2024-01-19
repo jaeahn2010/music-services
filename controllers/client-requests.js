@@ -13,12 +13,6 @@ router.get('/', function (req, res) {
         .then(clientRequests => res.render('client-requests/client-request-index', { clientRequests: clientRequests }))
 })
 
-// //new rt: "add new req" btn clicked: form to be filled out to create new req
-// router.get('/new', (req, res) => {
-//     db.Opus.find({})
-//         .then(opuses => res.render('client-requests/client-request-newform', { opuses: opuses, requestInProgress: "yes", allRequests: [] }))
-// })
-
 //create rt: "submit new req" btn clicked: create new req w/ form data, redirect -> req-idx pg
 router.post('/', (req, res) => {
     req.body.requestedRepertoire = JSON.parse(req.body.requestedRepertoire);
@@ -31,14 +25,14 @@ router.post('/', (req, res) => {
 //show rt: disp spec req - not nec?
 router.get('/:id', function (req, res) {
     db.ClientRequest.find({})
-        .then(clientRequests => res.render('client-requests/client-request-index', { clientRequests: clientRequests, requestInProgress: "yes" }))
+        .then(clientRequests => res.render('client-requests/client-request-index', { clientRequests: clientRequests }))
         .catch(() => res.render('404'))
 })
 
 //edit rt: "edit req" btn clicked: form to be used to edit spec req
 router.get('/:id/edit', (req, res) => {
     db.ClientRequest.findById(req.params.id)
-        .then(clientRequest => res.render('client-requests/client-request-edit', { clientRequest: clientRequest, requestInProgress: "yes" }))
+        .then(clientRequest => res.render('client-requests/client-request-edit', { clientRequest: clientRequest }))
 })
 
 //update rt: "apply changes" btn clicked: edit spec req w/ form data, redirect -> req-idx pg
