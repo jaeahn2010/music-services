@@ -167,18 +167,18 @@ router.put('/done-adding', (req, res) => {
 
 //create rt: 'submit new repertoire' btn clicked: new rep added; redirect to its details pg
 router.post('/', (req, res) => {
-    let newMvmtObj = {movementTitle: '', movementPrice: 0};
-    let mvmtArr = [];
-    for (let i = 0; i < req.body.movements.movementTitle.length; i++) {
-        newMvmtObj.movementTitle = req.body.movements.movementTitle[i];
-        newMvmtObj.movementPrice = req.body.movements.movementPrice[i];
-        let tempCopy = {...newMvmtObj};
-        mvmtArr.push(tempCopy);
-        console.log(mvmtArr);
+    console.log(req.body.movements);
+    if (req.body.movements !== undefined) {
+        let newMvmtObj = {movementTitle: '', movementPrice: 0};
+        let mvmtArr = [];
+        for (let i = 0; i < req.body.movements.movementTitle.length; i++) {
+            newMvmtObj.movementTitle = req.body.movements.movementTitle[i];
+            newMvmtObj.movementPrice = req.body.movements.movementPrice[i];
+            let tempCopy = {...newMvmtObj};
+            mvmtArr.push(tempCopy);
+        }
+        req.body.movements = mvmtArr;
     }
-    console.log("Arr of new movement objects: ", mvmtArr);
-    req.body.movements = mvmtArr;
-    console.log("new req body: ", req.body)
     db.Opus.create(req.body)
         .then(opus => res.redirect('/opuses/' + opus._id))
 })
