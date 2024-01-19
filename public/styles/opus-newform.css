@@ -2,6 +2,10 @@ h2 {
     text-align: center;
 }
 
+form {
+    margin: 20px;
+}
+
 .opus-newform-title, .opus-newform-composer, .opus-newform-price, .opus-newform-description {
     display: flex;
     justify-content: space-between;
@@ -9,8 +13,18 @@ h2 {
     width: 70%;
 }
 
+.opus-newform-title input, .opus-newform-composer input, .opus-newform-price input, .opus-newform-description textarea, #opus-newform-movements div input {
+    border: 1px solid white;
+    width: 150px;
+}
+
+.opus-newform-instrumentation div {
+    margin: 20px 0;
+    columns: 2;
+}
+
 .opus-newform-instrumentation, .instrumentation {
-    margin: 10px 0;
+    margin: 50px 0;
 }
 
 .checkbox {
@@ -18,7 +32,7 @@ h2 {
 }
 
 .opus-newform-price span {
-    padding-left: 60px;
+    padding-left: 30px;
 }
 
 .opus-newform-price input {
@@ -34,6 +48,7 @@ h2 {
 
 #opus-newform-movements div {
     border: 1px solid white;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;

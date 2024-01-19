@@ -22,10 +22,12 @@
         <div class="opus-newform-instrumentation">
             <label for="instrumentation">Instrumentation (select all that apply):</label><br>
             <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
+            <div>
             <% for (instrument of instrumentsList) { %>
                 <input class="checkbox" type="checkbox" id="<%= instrument %>" name="instrumentation" value="<%= instrument %>">
                 <label for="<%= instrument %>"> <%= instrument %></label><br>
             <% } %>
+            </div>
         </div>
         <div class="opus-newform-price">
             <label for="price">Price:</label>

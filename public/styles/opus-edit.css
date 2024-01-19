@@ -2,6 +2,10 @@ h2 {
     text-align: center;
 }
 
+input, textarea {
+    border: 1px solid white;
+}
+
 table {
     margin: 20px 0;
     width: 100%;
@@ -23,13 +27,34 @@ div {
     text-align: center;
 }
 
-#movements {
+#movements, #opus-edit-movements p {
     text-align: center;
 }
 
-#submit-btn {
+.each-movement {
+    margin: 10px;
+}
+
+.each-movement label, #additional-movements div label {
+    margin-left: 20px;
+}
+
+#additional-movements div {
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 10px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+#additional-movements div input {
+    width: 100px;
+}
+
+#submit-btn, #add-movement-btn {
     border-radius: 10px;
     margin: 20px 0;
+    padding: 10px;
 }
 
 #submit-btn:hover {

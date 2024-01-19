@@ -34,7 +34,9 @@
                 <td><label for="eventDate">Date & Time:</label></td>
                 <td><input type="datetime-local" id="eventDate" name="eventDate" required></td>
             </tr>
-            <tr><td class="table-subsection"><p>Event location:</p></td></tr>
+        </table>
+            <p class="table-subsection">Event location:</p>
+        <table>
             <tr>
                 <td><label for="eventAddress">Address:</label></td>
                 <td><input type="text" id="eventAddress" name="eventLocation[address]" required></td>
@@ -62,41 +64,36 @@
                 <td><textarea id="comments" name="comments" rows=10></textarea></td>
             </tr>
         </table>
-        <p class="table-subsection">Requested repertoire:</p>
-        <input type="hidden" id="requestedRepertoire" name="requestedRepertoire" value="<%= JSON.stringify(requestList) %>">
-        <% for (requestedOpus of requestList) { %>
-            <% let splitName = requestedOpus.composer.split('-'); %>
-            <% let formattedName = ''; %>
-            <% for (let i = 0; i < splitName.length; i++) { %>
-                <% if (i === 0) { %>
-                    <% formattedName += splitName[i] + ', ' %> 
-                <% } else { %>
-                    <% formattedName += splitName[i] + ' '%>
+        <div class="table-subsection">  
+            <p>Requested repertoire</p> 
+            <input type="hidden" id="requestedRepertoire" name="requestedRepertoire" value="<%= JSON.stringify(requestList) %>">
+            <% for (requestedOpus of requestList) { %>
+            <div>
+                <% let splitName = requestedOpus.composer.split('-'); %>
+                <% let formattedName = ''; %>
+                <% for (let i = 0; i < splitName.length; i++) { %>
+                    <% if (i === 0) { %>
+                        <% formattedName += splitName[i] + ', ' %> 
+                    <% } else { %>
+                        <% formattedName += splitName[i] + ' '%>
+                    <% } %>
                 <% } %>
-            <% } %>
-            <p><%= formattedName %></p>
-                </tr>
-                <tr>
-                    <td><%= requestedOpus.title %></td>
-                </tr>
+                <p><%= formattedName %></p>
+                <p><%= requestedOpus.title %></p>
                 <% if (requestedOpus.movements.length > 0) { %>
                     <% for (movement of requestedOpus.movements) { %>
-                    <tr>
-                        <td><%= movement.movementTitle %></td>
-                        <td>$<%= movement.movementPrice %></td>
-                    </tr>
+                    <ul>
+                        <li><%= movement.movementTitle %> &#40 $<%= movement.movementPrice %> &#41</li>
+                    </ul>
                     <% } %>
                 <% } %>  
                 <% if (requestedOpus.movements.length === opus.movements.length) { %>
-                <tr>
-                    <td>$<%= requestedOpus.price %></td>
-                </tr>
+                <p>Bulk price (if requesting entire opus): $<%= requestedOpus.price %></p>
                 <% } %>
+            </div>
             <% } %>
-            </tr>
-        </table>
-        <br>
-        <div>
+        </div>
+        <div class="submit-area">
             <input type="submit" id='submit-btn' value="Submit Request">
         </div>
     </form>

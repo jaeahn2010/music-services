@@ -42,7 +42,7 @@
             </tr>
         </table>
         <section id="opus-edit-movements">
-            <p>Movements: </p>
+            <p>Movements</p>
             <% for (let i = 0; i < opus.movements.length; i++) { %>
                 <div class="each-movement">
                     <label for="mvmt-title-<%= i + 1 %>">Movement <%= i + 1 %></label>
@@ -51,20 +51,22 @@
                     <input type="number" id="mvmt-price-<%= i + 1%>" name="movements[movementPrice]" value="<%= opus.movements[i].movementPrice %>">
                 </div>
             <% } %>
+            <div id="additional-movements">
+            </div>
             <div class="opus-edit-buttons">
                 <button type="button" id="add-movement-btn">Add a Movement</button>
                 <script>
-                    const opusEditMovements = document.getElementById('opus-edit-movements');
+                    const additionalMovements = document.getElementById('additional-movements');
                     const addMovementBtn = document.getElementById('add-movement-btn');
                     let mvmtNum = 0
                     addMovementBtn.addEventListener('click', (evt) => {
                         evt.stopImmediatePropagation();
                         mvmtNum++;
                         const div = document.createElement('div');
-                        opusEditMovements.appendChild(div);
+                        additionalMovements.appendChild(div);
                         const p = document.createElement('p');
                         div.appendChild(p);
-                        p.innerText = `Added Movement ${mvmtNum}`;
+                        p.innerText = `Additional Movement ${mvmtNum}`;
                         const mvmtTitleLabel = document.createElement('label');
                         mvmtTitleLabel.htmlFor = `mvmt-title-${mvmtNum}`
                         mvmtTitleLabel.innerText = 'Title: '

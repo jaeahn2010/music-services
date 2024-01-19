@@ -1,0 +1,24 @@
+section {
+    text-align: center;
+}
+.each-rep {
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 10px;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.btn {
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 10px;
+    margin: 10px;
+}

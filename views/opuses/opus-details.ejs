@@ -49,10 +49,7 @@
                 <tr>
                     <td>Movement <%= i + 1 %>:</td>
                     <td><%= opus.movements[i].movementTitle %></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>$<%= opus.movements[i].movementPrice %></td>
+                    <td>&#40$<%= opus.movements[i].movementPrice %>&#41</td>
                 </tr>
                 <% } %>
             <% } %>

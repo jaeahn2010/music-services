@@ -11,6 +11,7 @@ td {
 }
 
 input, textarea {
+    border: 1px solid white;
     margin-left: 20px;
     width: 200px;
 }
@@ -20,7 +21,21 @@ select {
     width: 207px;
 }
 
-.table-section {
-    height: 6vh;
+.table-section, .submit-area {
     text-align: center;
+}
+
+.table-subsection p, .table-subsection div {
+    text-align: center;
+}
+
+.table-subsection div {
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+#submit-btn {
+    font-size: 16px;
+    padding: 10px;
 }

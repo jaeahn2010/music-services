@@ -12,10 +12,8 @@
     <section class="client-request-details">
         <div>
             <div class="fixed-details-left">
-                <p>Request made by:</p>
-                <p><strong><%= clientRequest.clientName %></strong></p>
-                <p>Instrument:</p>
-                <p><strong><%= clientRequest.clientInstrument %></strong></p>
+                <p>Request made by: <strong><%= clientRequest.clientName %></strong></p>
+                <p>Instrument: <strong><%= clientRequest.clientInstrument %></strong></p>
             </div>
             <div class="fixed-details-right">
                 <p>Event: <strong><%= clientRequest.eventTitle %></strong></p>
@@ -29,11 +27,19 @@
     </section>
     <section class="rep-list">
         <p>Requested repertoire:</p>
-        <% console.log(clientRequest.requestedRepertoire); %>
         <% for (let rep of clientRequest.requestedRepertoire) { %>
-        <div>
+        <div class="each-rep">
             <p>Title: <%= rep.title %></p>
-            <p>Composer: <%= rep.composer %></p>
+            <% let splitName = rep.composer.split('-'); %>
+            <% let formattedName = ''; %>
+            <% for (let i = 0; i < splitName.length; i++) { %>
+                <% if (i === 0) { %>
+                    <% formattedName += splitName[i] + ', ' %> 
+                <% } else { %>
+                    <% formattedName += splitName[i] + ' '%>
+                <% } %>
+            <% } %>
+            <p>Composer: <%= formattedName %></p>
             <p>Instrumentation: 
             <% for (let instrument of rep.instrumentation) { %>
             <span><%= instrument %> </span>
@@ -43,11 +49,13 @@
         </div>
         <% } %>
     </section>
-    <button><a href="/client-requests">See all requests</a></button>
-    <button><a href="/client-requests/<%= clientRequest._id %>/edit">Edit this Request</a></button>
-    <form method="POST" action="/client-requests/<%= clientRequest._id %>?_method=DELETE">
-        <input type="submit" value="Delete this Request"/>
-    </form>
+    <div class="buttons">
+        <button class="btn"><a href="/client-requests">See all requests</a></button>
+        <button class="btn"><a href="/client-requests/<%= clientRequest._id %>/edit">Edit this Request</a></button>
+        <form method="POST" action="/client-requests/<%= clientRequest._id %>?_method=DELETE">
+            <input class='btn' type="submit" value="Delete this Request"/>
+        </form>
+    </div>
     <%- include('../partials/footer.ejs') %>
 </body>
 
