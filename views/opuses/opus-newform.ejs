@@ -46,7 +46,8 @@
                 const opusNewformMovements = document.getElementById('opus-newform-movements');
                 const addMovementBtn = document.getElementById('add-movement-btn');
                 let mvmtNum = 0;
-                addMovementBtn.addEventListener('click', () => {
+                addMovementBtn.addEventListener('click', (evt) => {
+                    evt.stopImmediatePropagation();
                     mvmtNum++;
                     const div = document.createElement('div');
                     opusNewformMovements.appendChild(div);
@@ -61,7 +62,7 @@
                     mvmtTitleInput.setAttribute('type', 'text');
                     mvmtTitleInput.id = `mvmt-title-${mvmtNum}`
                     mvmtTitleInput.setAttribute('name', 'movements[movementTitle]');
-                    mvmtTitleLabel.appendChild(mvmtTitleInput);
+                    div.appendChild(mvmtTitleInput);
                     const mvmtPriceLabel = document.createElement('label');
                     mvmtPriceLabel.htmlFor = `mvmt-price-${mvmtNum}`
                     mvmtPriceLabel.innerText = 'Price: $'
@@ -72,7 +73,7 @@
                     mvmtPriceInput.setAttribute('name', 'movements[movementPrice]');
                     mvmtPriceInput.setAttribute('min', 0);
                     mvmtPriceInput.setAttribute('max', 1000)
-                    mvmtPriceLabel.appendChild(mvmtPriceInput);
+                    div.appendChild(mvmtPriceInput);
                 })
             </script>
             <input id='submit-btn' type="submit" value="Add Repertoire">
