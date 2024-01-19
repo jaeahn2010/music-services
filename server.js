@@ -16,26 +16,31 @@ const db = require('./models');
 //create express app
 const app = express();
 
-//refresh browser when nodemon restarts
-const liveReloadServer = livereload.createServer();
-liveReloadServer.server.once("connection", () => {
-    setTimeout(() => {
+// Detect if running in a dev environment
+if (process.env.ON_HEROKU === 'false') {
+    // Configure the app to refresh the browser when nodemon restarts
+    const liveReloadServer = livereload.createServer();
+    liveReloadServer.server.once("connection", () => {
+        // wait for nodemon to fully restart before refreshing the page
+        setTimeout(() => {
         liveReloadServer.refresh("/");
-    }, 100);
-});
+        }, 100);
+    });
+    app.use(connectLiveReload());
+}
+
+// Body parser: used for POST/PUT/PATCH routes: 
+// this will take incoming strings from the body that are URL encoded and parse them 
+// into an object that can be accessed in the request parameter as a property called body (req.body).
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'))
+// Allows us to interpret POST requests from the browser as another request type: DELETE, PUT, etc.
+app.use(methodOverride('_method'));
+
 
 //configure app
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-
-//middleware
-app.use(express.static('public'));
-app.use(connectLiveReload());
-// body parser for POST/PUT/PATCH rts:
-// take incoming strs from body (url encoded) -> parse them into obj to be accessed in req param as req.body
-app.use(express.urlencoded({ extended: true }));
-//interpret POST reqs from browser as DELETE/PUT/etc
-app.use(methodOverride('_method'));
 
 //mount rts
 app.get('/', function (req, res) {
@@ -47,22 +52,23 @@ app.get('/about', function (req, res) {
 });
 
 // opus collection seeded (reset to orig seed) w/ '/seed'
-app.get('/seed', function (req, res) {
-    db.Opus.deleteMany({})
-        .then(removedOpuses => {
-            console.log(`Removed ${removedOpuses.deletedCount} opuses.`)
-            db.Opus.insertMany(db.seedOpuses)
-                .then(addedOpuses => {
-                    console.log(`Added ${addedOpuses.length} opuses. Reset to original database.`)
-                    res.json(addedOpuses)
-                })
-        })
-    db.ClientRequest.deleteMany({})
-        .then(removedRequests => {
-            console.log(`Removed ${removedRequests.deletedCount} requests.`)
-        })
-});
-
+if (process.env.ON_HEROKU === 'false') {
+    app.get('/seed', function (req, res) {
+        db.Opus.deleteMany({})
+            .then(removedOpuses => {
+                console.log(`Removed ${removedOpuses.deletedCount} opuses.`)
+                db.Opus.insertMany(db.seedOpuses)
+                    .then(addedOpuses => {
+                        console.log(`Added ${addedOpuses.length} opuses. Reset to original database.`)
+                        res.json(addedOpuses)
+                    })
+            })
+        db.ClientRequest.deleteMany({})
+            .then(removedRequests => {
+                console.log(`Removed ${removedRequests.deletedCount} requests.`)
+            })
+    });
+}
 //for controllers
 app.use('/client-requests', clientRequestsCtrl);
 app.use('/opuses', opusesCtrl);
