@@ -11,17 +11,20 @@
     <h3>Your request details</h3>
     <section class="client-request-details">
         <div>
-            <div class="fixed-details-left">
+            <div>
                 <p>Request made by: <strong><%= clientRequest.clientName %></strong></p>
                 <p>Instrument: <strong><%= clientRequest.clientInstrument %></strong></p>
             </div>
-            <div class="fixed-details-right">
+            <div>
+                <% let dateData = String(clientRequest.eventDate).split(' '); %>
                 <p>Event: <strong><%= clientRequest.eventTitle %></strong></p>
-                <p>Date & Time: <strong><%= clientRequest.eventDate %></strong></p>
+                <p>Date & Time: <strong><%= `${dateData[1]} ${dateData[2]}, ${dateData[3]} (${dateData[0]})     ${dateData[4].slice(0, 5)} ${dateData[6].charAt(1)}${dateData[7].charAt(0)}${dateData[8].charAt(0)}` %></strong></p>
+            </div>
+            <div>
                 <p>Location:</p>
-                <p><strong><%= clientRequest.eventLocation.address %></strong></p>
-                <p><strong><%= clientRequest.eventLocation.city %>, <%= clientRequest.eventLocation.state %></strong></p>
-                <p><strong><%= clientRequest.eventLocation.zip %></strong></p>
+                <p>Address: <strong><%= clientRequest.eventLocation.address %></strong></p>
+                <p>City/State: <strong><%= clientRequest.eventLocation.city %>, <%= clientRequest.eventLocation.state %></strong></p>
+                <p>Zip: <strong><%= clientRequest.eventLocation.zip %></strong></p>
             </div>
         </div>
     </section>

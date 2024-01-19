@@ -68,7 +68,7 @@
             <p>Requested repertoire</p> 
             <input type="hidden" id="requestedRepertoire" name="requestedRepertoire" value="<%= JSON.stringify(requestList) %>">
             <% for (requestedOpus of requestList) { %>
-            <div>
+            <div class="each-item">
                 <% let splitName = requestedOpus.composer.split('-'); %>
                 <% let formattedName = ''; %>
                 <% for (let i = 0; i < splitName.length; i++) { %>

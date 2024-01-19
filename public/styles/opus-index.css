@@ -101,6 +101,7 @@ main {
 }
 
 .btn, .movements-button {
+    background-color: rgb(132, 86, 1);
     border-radius: 10px;
     font-size: 16px;
     margin: 10px;
