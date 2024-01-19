@@ -1,7 +1,43 @@
-p {
-    text-align: center;
-}
+
 
 .no-requests {
     margin: 100px 5px;
+}
+
+.request-ref {
+    border: 1px solid white;
+    border-radius: 10px 10px 0 0;
+    font-size: 14px;
+    text-align: center;
+    margin: 10px 0 0 20px;
+    width: 50%;
+}
+
+.each-client-request {
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 0 10px 30px 10px;
+    padding: 10px;
+    text-align: left;
+}
+
+.each-client-request, .request-ref, .request-ref p, .each-client-request * {
+    background-color: rgb(32, 120, 149);
+}
+
+.req-timestamp {
+    font-size: 10px;
+}
+
+.client-request-link {
+    text-decoration: none;
+}
+
+form {
+    text-align: center;
+}
+
+.btn {
+    font-size: 16px;
+    padding: 5px;
 }

@@ -14,26 +14,34 @@
         <p>Please click the "See Repertoire List" to begin your request.</p>
     </div>
     <% } else { %>
+    <p>This is a list of all of your requests. Please click on any of the requests to see its details.</p>
         <% for (clientRequest of clientRequests) { %>
-            <section class="each-client-request">
-                <div>
-                    <p>Request made by:</p>
-                    <p><strong><%= clientRequest.clientName %></strong></p>
-                    <p>Instrument:</p>
-                    <p><strong><%= clientRequest.clientInstrument %></strong></p>
-                </div>
-                <div>
-                    <p>Event: <strong><%= clientRequest.eventTitle %></strong></p>
-                    <p>Date & Time: <strong><%= clientRequest.eventDate %></strong></p>
-                </div>
-                <div>
-                    <p>Request created at: <%= clientRequest.createdAt %></p>
-                    <p>Request last updated at: <%= clientRequest.updatedAt %></p>
-                </div>
-            </section>
-            <form method="POST" action="/client-requests/<%= clientRequest._id %>?_method=DELETE">
-                <input type="submit" value="Delete this Request"/>
-            </form>
+        <section>
+            <div class="request-ref">
+                <% let refNum = String(clientRequest._id).slice(-8) %>
+                <p>Reference ID: <%= refNum %></p>
+            </div>
+            <div class="each-client-request">
+                <a class="client-request-link" href="/client-requests/<%= clientRequest._id %>">
+                    <div>
+                        <p>Request made by: <strong><%= clientRequest.clientName %></strong></p>
+                        <p>Instrument: <strong><%= clientRequest.clientInstrument %></strong></p>
+                    </div>
+                    <div>
+                        <% let dateData = String(clientRequest.eventDate).split(' '); %>
+                        <p>Event: <strong><%= clientRequest.eventTitle %></strong></p>
+                        <p>Date & Time: <strong><%= `${dateData[1]} ${dateData[2]}, ${dateData[3]} (${dateData[0]})     ${dateData[4].slice(0, 5)} ${dateData[6].charAt(1)}${dateData[7].charAt(0)}${dateData[8].charAt(0)}` %></strong></p>
+                    </div>
+                    <div class="req-timestamp">
+                        <p>Request created at: <%= clientRequest.createdAt %></p>
+                        <p>Request last updated at: <%= clientRequest.updatedAt %></p>
+                    </div>
+                </a>
+                <form method="POST" action="/client-requests/<%= clientRequest._id %>?_method=DELETE">
+                    <input class='btn' type="submit" value="Delete this Request"/>
+                </form>
+            </div>
+        </section>
         <% } %>
     <% } %>
     <%- include('../partials/footer.ejs') %>

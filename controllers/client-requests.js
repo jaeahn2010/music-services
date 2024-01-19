@@ -22,10 +22,10 @@ router.post('/', (req, res) => {
         })
     })
 
-//show rt: disp spec req - not nec?
+//show rt: disp spec req
 router.get('/:id', function (req, res) {
-    db.ClientRequest.find({})
-        .then(clientRequests => res.render('client-requests/client-request-index', { clientRequests: clientRequests }))
+    db.ClientRequest.findById(req.params.id)
+        .then(clientRequest => res.render('client-requests/client-request-details', { clientRequest: clientRequest }))
         .catch(() => res.render('404'))
 })
 
@@ -41,12 +41,11 @@ router.put('/:id', (req, res) => {
         .then(() => res.redirect('/client-requests'))
 })
 
-//destroy rt: "delete req" btn clicked: del req
+//destroy rt: "delete this req" btn clicked: del req
 router.delete('/:id', (req, res) => {
     db.ClientRequest.findByIdAndDelete(req.params.id)
         .then(() => res.redirect('/client-requests'))
 })
-
 
 //export ^rts to be accessible in 'server.js'
 module.exports = router
