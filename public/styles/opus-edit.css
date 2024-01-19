@@ -23,6 +23,10 @@ div {
     text-align: center;
 }
 
+#movements {
+    text-align: center;
+}
+
 #submit-btn {
     border-radius: 10px;
     margin: 20px 0;

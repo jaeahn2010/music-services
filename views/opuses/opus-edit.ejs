@@ -5,12 +5,11 @@
     <%- include('../partials/head.ejs', {title: 'Edit Repertoire | GLVMS'}) %>
     <link rel="stylesheet" href="/styles/opus-edit.css">
 </head>
-
 <body>
     <%- include('../partials/nav.ejs') %>
 
     <h2>Edit Repertoire</h2>
-    <form method="POST" action="/opuses">
+    <form method="POST" action="/opuses/<%= opus._id %>?_method=PUT">
         <table>
             <tr>
                 <td><label for="title">Title:</label></td>
@@ -21,9 +20,17 @@
                 <td><input type="text" id="composer" name="composer" value=<%= opus.composer %> required></td>
             </tr>
             <tr>
-                <td><label for="instrumentation">Instrumentation: </label></td>
-                <td><input type="text" id="instrumentation" name="instrumentation" min=0 value=<%= opus.instrumentation %> required></td>
-                <!--make this a radio button choice?-->
+                <td>
+                    <label for="instrumentation">Instrumentation:</label>
+                    <p> (select all that apply)</p>
+                </td>
+                <td>
+                    <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
+                    <% for (instrument of instrumentsList) { %>
+                        <input class="checkbox" type="checkbox" id="<%= instrument %>" name="instrumentation" value="<%= instrument %>">
+                        <label for="<%= instrument %>"> <%= instrument %></label><br>
+                    <% } %>
+                </td>
             </tr>
             <tr>
                 <td><label for="price">Price:</label></td>
@@ -31,13 +38,61 @@
             </tr>
             <tr>
                 <td><label for="description">Description:</label></td>
-                <td><textarea id="description" name="description"  value=<%= opus.description %>></textarea></td>
+                <td><textarea id="description" name="description" value=<%= opus.description %>></textarea></td>
             </tr>
         </table>
-        <!--add movement button here w/ prepopulated info w/ delete button for each-->
+        <section id="opus-edit-movements">
+            <p>Movements: </p>
+            <% for (let i = 0; i < opus.movements.length; i++) { %>
+                <div class="each-movement">
+                    <label for="mvmt-title-<%= i + 1 %>">Movement <%= i + 1 %></label>
+                    <input type="text" id="mvmt-title-<%= i + 1 %>" name="movements[movementTitle]" value="<%= opus.movements[i].movementTitle %>">
+                    <label for="mvmt-price-<%= i + 1 %>">$</label>
+                    <input type="number" id="mvmt-price-<%= i + 1%>" name="movements[movementPrice]" value="<%= opus.movements[i].movementPrice %>">
+                </div>
+            <% } %>
+            <div class="opus-edit-buttons">
+                <button type="button" id="add-movement-btn">Add a Movement</button>
+                <script>
+                    const opusEditMovements = document.getElementById('opus-edit-movements');
+                    const addMovementBtn = document.getElementById('add-movement-btn');
+                    let mvmtNum = 0
+                    addMovementBtn.addEventListener('click', (evt) => {
+                        evt.stopImmediatePropagation();
+                        mvmtNum++;
+                        const div = document.createElement('div');
+                        opusEditMovements.appendChild(div);
+                        const p = document.createElement('p');
+                        div.appendChild(p);
+                        p.innerText = `Added Movement ${mvmtNum}`;
+                        const mvmtTitleLabel = document.createElement('label');
+                        mvmtTitleLabel.htmlFor = `mvmt-title-${mvmtNum}`
+                        mvmtTitleLabel.innerText = 'Title: '
+                        div.appendChild(mvmtTitleLabel);
+                        const mvmtTitleInput = document.createElement('input');
+                        mvmtTitleInput.setAttribute('type', 'text');
+                        mvmtTitleInput.id = `mvmt-title-${mvmtNum}`
+                        mvmtTitleInput.setAttribute('name', 'movements[movementTitle]');
+                        div.appendChild(mvmtTitleInput);
+                        const mvmtPriceLabel = document.createElement('label');
+                        mvmtPriceLabel.htmlFor = `mvmt-price-${mvmtNum}`
+                        mvmtPriceLabel.innerText = 'Price: $'
+                        div.appendChild(mvmtPriceLabel);
+                        const mvmtPriceInput = document.createElement('input');
+                        mvmtPriceInput.setAttribute('type', 'number');
+                        mvmtPriceInput.id = `mvmt-price-${mvmtNum}`
+                        mvmtPriceInput.setAttribute('name', 'movements[movementPrice]');
+                        mvmtPriceInput.setAttribute('min', 0);
+                        mvmtPriceInput.setAttribute('max', 1000)
+                        div.appendChild(mvmtPriceInput);
+                    })
+                </script>
+            </div>
+        </section>
         <div>
             <input id='submit-btn' type="submit" value="Submit Revised Information">
         </div>
+        <!-- movements data not being passed correctly -->
     </form>
 
     <%- include('../partials/footer.ejs') %>

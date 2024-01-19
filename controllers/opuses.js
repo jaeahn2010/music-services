@@ -135,7 +135,6 @@ router.put('/modify-request/:opusId', (req, res) => {
 
 //delete rt: 'remove from cart' btn of MOVEMENT clicked: remove from array, go to req-viewcart
 router.put('/modify-request/:opusId/:mvmtNumber', (req, res) => {
-    console.log("you've reached the mvmt del route")
     db.Opus.findById(req.params.opusId)
         .then(opus => {
             for (let i = 0; i < requestedRepertoire.length; i++) {
@@ -152,7 +151,6 @@ router.put('/modify-request/:opusId/:mvmtNumber', (req, res) => {
 //show rt: 'clear cart' btn clicked: empty array & return home
 router.post('/clear-cart', (req, res) => {
     requestedRepertoire = [];
-    console.log('cleared cart: ', requestedRepertoire);
     res.redirect('/');
 })
 
@@ -167,7 +165,6 @@ router.put('/done-adding', (req, res) => {
 
 //create rt: 'submit new repertoire' btn clicked: new rep added; redirect to its details pg
 router.post('/', (req, res) => {
-    console.log(req.body.movements);
     if (req.body.movements !== undefined) {
         let newMvmtObj = {movementTitle: '', movementPrice: 0};
         let mvmtArr = [];
@@ -186,11 +183,24 @@ router.post('/', (req, res) => {
 //edit rt: 'edit repertoire' btn clicked: go to edit pg
 router.get('/:id/edit', (req, res) => {
     db.Opus.findById(req.params.id)
-        .then(opus => res.render('opuses/opus-edit', { opus: opus }))
+        .then(opus => {
+            res.render('opuses/opus-edit', { opus: opus })
+        })
 })
 
-//update rt: 'apply changes' btn clicked: edits spec opus, redirect to show pg of updated opus
+//update rt: 'submit revised information' btn clicked: edits spec opus, redirect to show pg of updated opus
 router.put('/:id', (req, res) => {
+    if (req.body.movements !== undefined) {
+        let newMvmtObj = {movementTitle: '', movementPrice: 0};
+        let mvmtArr = [];
+        for (let i = 0; i < req.body.movements.movementTitle.length; i++) {
+            newMvmtObj.movementTitle = req.body.movements.movementTitle[i];
+            newMvmtObj.movementPrice = req.body.movements.movementPrice[i];
+            let tempCopy = {...newMvmtObj};
+            mvmtArr.push(tempCopy);
+        }
+        req.body.movements = mvmtArr;
+    }
     db.Opus.findByIdAndUpdate(req.params.id, req.body, { new: true })
         .then(opus => res.redirect('/opuses/' + opus._id))
 })
