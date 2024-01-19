@@ -63,14 +63,14 @@ app.get('/seed', function (req, res) {
         })
 });
 
-// // err rt
-// app.get('*', function (req, res) {
-//     res.render('404');
-// });
-
 //for controllers
 app.use('/client-requests', clientRequestsCtrl);
 app.use('/opuses', opusesCtrl);
+
+// err rt
+app.get('*', function (req, res) {
+    res.render('404');
+});
 
 //listen to port 3000
 app.listen(process.env.PORT, function () {
