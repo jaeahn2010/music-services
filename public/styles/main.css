@@ -141,3 +141,8 @@ footer nav {
     .carousel {max-width: 1000px}
     .photo img {height: 30vh; padding-bottom: 50px;}
 }
+
+@media screen and (min-width: 1200px) {
+    body {margin: 100px;}
+    .photo img {height: 60vh;}
+}

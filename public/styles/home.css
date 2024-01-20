@@ -65,3 +65,9 @@ h1, h4 {
     .headshot {width: 300px;}
     .home-links a button {font-size: 24px; width: 250px;}
 }
+
+@media screen and (min-width: 1200px) {
+    .home-body {display: flex;}
+    .home-left p {font-size: 20px;}
+    .home-right {margin-top: 120px;}
+}

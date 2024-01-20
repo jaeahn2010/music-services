@@ -101,7 +101,13 @@ div {
     input, textarea {font-size: 24px;}
     textarea {height: 6vh;}
     .each-movement label, #additional-movements div label {font-size: 30px;}
-    .each-movement input {font-size: 24px}
+    .each-movement input {font-size: 24px;}
     .each-movement button {width: 75px; height: 75px; margin-right: 20px;}
     .trash-can {width: 65px;}
+}
+
+@media screen and (min-width: 1200px) {
+    #additional-movements {display: flex; flex-direction: column; justify-content: center; align-items: center;}
+    #additional-movements div input {width: 500px;}
+    #additional-movements div {width: 50%; text-align: center;}
 }
