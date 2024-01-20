@@ -2,6 +2,45 @@
     text-align: center;
 }
 
-.each-requested-repertoire {
+input {
     border: 1px solid white;
+    margin: 10px;
+}
+
+.main-section {
+    padding: 10px;
+    margin: 10px;
+}
+
+.each-requested-repertoire {
+    background-color: rgb(32, 120, 149);
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.each-requested-repertoire * {
+    background-color: rgb(32, 120, 149);
+}
+
+.rep-list-title {
+    text-align: center;
+}
+
+.submit-area {
+    text-align: center;
+}
+
+#submit-btn {
+    background-color: rgb(132, 86, 1);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+}
+
+@media screen and (min-width: 600px) {
+    .each-requested-repertoire {padding: 15px 30px;}
+    #submit-btn {font-size: 24px; margin: 20px;}
+    select, input {font-size: 24px; width: 400px;}
 }

@@ -11,60 +11,62 @@
 
     <h2>Add a New Request</h2>
     <form method="POST" action="/client-requests">
-        <table>
-            <tr>
-                <td><label for="clientName">Your Name:</label></td>
-                <td><input type="text" id="clientName" name="clientName" required></td>
-            </tr>
-            <tr>
-                <td><label for="clientInstrument">Your instrument:</label></td>
-                <td><select id="clientInstrument" name="clientInstrument">
-                    <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
-                    <option value="choose-category" disabled selected>Choose your instrument</option>
-                    <% for (instrument of instrumentsList) { %>
-                        <option value=<%= instrument %>><%= instrument %></option>
-                    <% } %>
-                </select></td>
-            </tr>
-            <tr>
-                <td><label for="eventTitle">Event Title:</label></td>
-                <td><input type="text" id="eventTitle" name="eventTitle" required></td>
-            </tr>
-            <tr>
-                <td><label for="eventDate">Date & Time:</label></td>
-                <td><input type="datetime-local" id="eventDate" name="eventDate" required></td>
-            </tr>
-        </table>
-            <p class="table-subsection">Event location:</p>
-        <table>
-            <tr>
-                <td><label for="eventAddress">Address:</label></td>
-                <td><input type="text" id="eventAddress" name="eventLocation[address]" required></td>
-            </tr>
-            <tr>
-                <td><label for="eventCity">City:</label></td>
-                <td><input type="text" id="eventCity" name="eventLocation[city]" required></td>
-            </tr>
-            <tr>
-                <td><label for="eventState">State:</label></td>
-                <td><select id="eventState" name="eventLocation[state]">
-                    <% let states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'Washington, D.C.', 'West Virginia', 'Wisconsin', 'Wyoming']; %>
-                    <option value="choose-category" disabled selected>Choose a state</option>
-                    <% for (state of states) { %>
-                        <option value=<%= state %>><%= state %></option>
-                    <% } %>
-                </select></td>
-            </tr>
-            <tr>
-                <td><label for="eventZip">Zip code:</label></td>
-                <td><input type="number" id="eventZip" name="eventLocation[zip]" maxlength="5" required></td>
-            </tr>
-            <tr>
-                <td><label for="comments">Comments:</label></td>
-                <td><textarea id="comments" name="comments" rows=10></textarea></td>
-            </tr>
-        </table>
-        <div class="table-subsection">  
+        <div class="upper">
+            <table>
+                <tr>
+                    <td><label for="clientName">Your Name:</label></td>
+                    <td><input type="text" id="clientName" name="clientName" required></td>
+                </tr>
+                <tr>
+                    <td><label for="clientInstrument">Your instrument:</label></td>
+                    <td><select id="clientInstrument" name="clientInstrument">
+                        <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
+                        <option value="choose-category" disabled selected>Choose your instrument</option>
+                        <% for (instrument of instrumentsList) { %>
+                            <option value=<%= instrument %>><%= instrument %></option>
+                        <% } %>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td><label for="eventTitle">Event Title:</label></td>
+                    <td><input type="text" id="eventTitle" name="eventTitle" required></td>
+                </tr>
+                <tr>
+                    <td><label for="eventDate">Date & Time:</label></td>
+                    <td><input type="datetime-local" id="eventDate" name="eventDate" required></td>
+                </tr>
+            </table>
+                <p class="table-subsection">Event location:</p>
+            <table>
+                <tr>
+                    <td><label for="eventAddress">Address:</label></td>
+                    <td><input type="text" id="eventAddress" name="eventLocation[address]" required></td>
+                </tr>
+                <tr>
+                    <td><label for="eventCity">City:</label></td>
+                    <td><input type="text" id="eventCity" name="eventLocation[city]" required></td>
+                </tr>
+                <tr>
+                    <td><label for="eventState">State:</label></td>
+                    <td><select id="eventState" name="eventLocation[state]">
+                        <% let states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'Washington, D.C.', 'West Virginia', 'Wisconsin', 'Wyoming']; %>
+                        <option value="choose-category" disabled selected>Choose a state</option>
+                        <% for (state of states) { %>
+                            <option value=<%= state %>><%= state %></option>
+                        <% } %>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td><label for="eventZip">Zip code:</label></td>
+                    <td><input type="number" id="eventZip" name="eventLocation[zip]" maxlength="5" required></td>
+                </tr>
+                <tr>
+                    <td><label for="comments">Comments:</label></td>
+                    <td><textarea id="comments" name="comments" rows=10></textarea></td>
+                </tr>
+            </table>
+        </div>
+        <div class="lower">  
             <p>Requested repertoire</p> 
             <input type="hidden" id="requestedRepertoire" name="requestedRepertoire" value="<%= JSON.stringify(requestList) %>">
             <% for (requestedOpus of requestList) { %>
@@ -95,6 +97,7 @@
         </div>
         <div class="submit-area">
             <input type="submit" id='submit-btn' value="Submit Request">
+            <a href="/"><button type="button">Cancel request</button></a>
         </div>
     </form>
 </body>

@@ -1,3 +1,6 @@
+.rep-list p {
+    text-align: center;
+}
 .each-rep {
     background-color: rgb(0, 110, 153);
     border: 1px solid white;
@@ -27,4 +30,9 @@ a {
 
 .btn * {
     background-color: rgb(132, 86, 1);
+}
+
+@media screen and (min-width: 600px) {
+    .btn {font-size: 24px}
+    .client-request-details {padding: 30px;}
 }

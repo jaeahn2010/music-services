@@ -44,6 +44,18 @@ div {
     margin: 0 5px 0 10px;
 }
 
+.each-movement button {
+    background-color: rgb(190, 190, 190);
+    border: 2px solid white;
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .mvmt-title {
     font-size: 16px;
     width: 80%;
@@ -56,10 +68,7 @@ div {
 
 .trash-can {
     background-color: rgb(190, 190, 190);
-    border: 2px solid white;
-    border-radius: 10px;
-    margin-right: 10px;
-    width: 30px;
+    width: 40px;
 }
 
 #additional-movements div {
@@ -75,6 +84,7 @@ div {
 }
 
 #submit-btn, #add-movement-btn {
+    background-color: rgb(132, 86, 1);
     border-radius: 10px;
     margin: 20px 0;
     padding: 10px;
@@ -90,4 +100,8 @@ div {
     #submit-btn, #add-movement-btn {font-size: 24px;}
     input, textarea {font-size: 24px;}
     textarea {height: 6vh;}
+    .each-movement label, #additional-movements div label {font-size: 30px;}
+    .each-movement input {font-size: 24px}
+    .each-movement button {width: 75px; height: 75px; margin-right: 20px;}
+    .trash-can {width: 65px;}
 }

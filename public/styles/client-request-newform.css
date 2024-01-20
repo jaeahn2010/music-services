@@ -38,8 +38,14 @@ select {
     background-color: rgb(0, 110, 153);
 }
 
-#submit-btn {
+#submit-btn, .submit-area a button {
     background-color: rgb(132, 86, 1);
     font-size: 16px;
     padding: 10px;
+}
+
+@media screen and (min-width: 600px) {
+    input, textarea {font-size: 24px; width: 500px;}
+    #submit-btn, .submit-area a button {font-size: 24px; margin: 20px; width: 200px}
+    select {font-size: 24px; width: 525px;}
 }

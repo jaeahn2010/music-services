@@ -1,5 +1,5 @@
 * {
-    animation: fade 2s;
+    animation: fade 1s;
     background-color: rgb(0, 69, 97);
     color: rgb(215, 215, 215);
     font-family: "Optima", sans-serif;
@@ -113,6 +113,19 @@ footer nav {
     background-color: rgb(215, 215, 0);
     box-shadow: 3px 3px 5px rgb(100, 100, 0);
     color: rgb(50, 50, 50);
+}
+
+.error-body {
+    text-align: center;
+}
+
+.error-img img {
+    background-color: rgb(250, 163, 2);
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 100px;
+    padding: 50px;
+    width: 50vh;
 }
 
 @keyframes fade {

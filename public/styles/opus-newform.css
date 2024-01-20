@@ -67,6 +67,7 @@ form {
 }
 
 #add-movement-btn, #submit-btn {
+    background-color: rgb(132, 86, 1);
     border-radius: 10px;
     margin: 20px;
     padding: 10px;
@@ -76,4 +77,11 @@ form {
     background-color: rgb(215, 215, 0);
     box-shadow: 3px 3px 5px rgb(100, 100, 0);
     color: rgb(50, 50, 50);
+}
+
+@media screen and (min-width: 600px) {
+    #add-movement-btn, #submit-btn {font-size: 24px; margin: 20px;}
+    .opus-newform-title input, .opus-newform-composer input, .opus-newform-price input, .opus-newform-description textarea, #opus-newform-movements div input {font-size: 24px; width: 400px;}
+    .opus-newform-price span {padding-left: 100px;}
+    #opus-newform-movements div {padding-bottom: 30px;}
 }
