@@ -3,15 +3,21 @@
 }
 
 .filters-top {
-    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 .filters-top div {
     margin: 10px;
+    text-align: center;
 }
 
 .filters-bottom {
     margin: 20px;
+    text-align: center;
+}
+
+option {
     text-align: center;
 }
 
@@ -112,4 +118,10 @@ main {
     background-color: rgb(215, 215, 0);
     box-shadow: 3px 3px 5px rgb(100, 100, 0);
     color: rgb(50, 50, 50);
+}
+
+@media screen and (min-width: 600px) {
+    select {font-size: 24px;}
+    .cart {width: 50px;}
+    .btn, .movements-button {font-size: 24px}
 }

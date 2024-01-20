@@ -12,7 +12,7 @@
             <section class='filters'>
                 <div class="filters-top">
                     <div class="filter-1">
-                        <label id='label-1'for="composer-filter">Filter by composer:</label>
+                        <label id='label-1'for="composer-filter">Filter by composer</label>
                         <select id="composer-filter" name="composer">
                             <option value="choose-category" disabled selected>Choose a composer</option>
                         <% for (composer of fullComposersList) { %>
@@ -30,7 +30,7 @@
                         </select>
                     </div>
                     <div class="filter-2">
-                        <label id='label-2' for="instrumentation-filter">Filter by instrumentation:</label>
+                        <label id='label-2' for="instrumentation-filter">Filter by instrumentation</label>
                         <select id="instrumentation-filter" name="instrumentation">
                             <% let instrumentsList = ['bass', 'bass clarinet', 'bassoon', 'cello', 'clarinet', 'contrabassoon', 'english horn', 'euphonium', 'flute', 'guitar', 'harp', 'horn', 'oboe', 'orchestra', 'percussion', 'piano', 'piccolo', 'saxophone', 'trombone', 'trumpet', 'tuba', 'viola', 'violin', 'voice']; %>
                             <option value="choose-category" disabled selected>Choose an instrument</option>

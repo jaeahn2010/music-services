@@ -119,3 +119,12 @@ footer nav {
     from {opacity: 0}
     to {opacity: 100}
 }
+
+@media screen and (min-width: 600px) {
+    .glvms-title, nav a {font-size: 30px;}
+    .admin-link {font-size: 20px}
+    body {font-size: 30px;}
+    #prev-btn, #next-btn {font-size: 30px;}
+    .carousel {max-width: 1000px}
+    .photo img {height: 30vh; padding-bottom: 50px;}
+}

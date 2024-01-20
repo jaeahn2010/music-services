@@ -43,3 +43,7 @@ h3 {
     box-shadow: 3px 3px 5px rgb(100, 100, 0);
     color: rgb(50, 50, 50);
 }
+
+@media screen and (min-width: 600px) {
+    .btn {font-size: 24px;}
+}
