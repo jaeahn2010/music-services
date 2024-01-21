@@ -29,7 +29,7 @@ a {
 }
 
 .btn * {
-    background-color: rgb(132, 86, 1);
+    background-image: radial-gradient(rgb(112, 112, 112), black);
 }
 
 @media screen and (min-width: 600px) {

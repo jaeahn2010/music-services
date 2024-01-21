@@ -1,8 +1,32 @@
 <header>
     <h3 class="glvms-title">Greater Las Vegas Music Services</h3>
     <nav>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/client-requests">All Requests</a>
+        <a href="/" class="non-hb">Home</a>
+        <a href="/about" class="non-hb">About</a>
+        <a href="/opuses" class="non-hb">Repertoire List</a>
+        <a href="/client-requests" class="non-hb">My Requests</a>
+        <a href="#" id="hamburger"><img src="/assets/hamburger-menu.png" id="hamburger-img"><img src="/assets/white-x.png" id="white-x-img"></a>
     </nav>
+    <script defer>
+        let hamburger = document.getElementById('hamburger');
+        let nonHb = document.getElementsByClassName('non-hb');
+        let hamburgerImg = document.getElementById('hamburger-img');
+        let whiteXImg = document.getElementById('white-x-img');
+        hamburger.addEventListener('click', () => {
+            if (whiteXImg.style.display !== 'inline') {
+                whiteXImg.style.display = 'inline';
+                hamburgerImg.style.display = 'none';
+            } else {
+                whiteXImg.style.display = 'none';
+                hamburgerImg.style.display = 'inline';
+            }
+            for (elem of nonHb) {
+                if (elem.style.display !== 'inline') {
+                    elem.style.display = 'inline';
+                } else if (elem.style.display === 'inline') {
+                    elem.style.display = 'none';
+                }
+            }
+        });
+    </script>
 </header>

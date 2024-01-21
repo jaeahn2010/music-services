@@ -1,6 +1,61 @@
+.title {
+    background-color: black;
+    position: relative;
+}
+
+.title h1, .title img {
+    position: absolute;
+}
+
+.title img {
+    opacity: 0.5;
+    width: 100%;
+    height: 128px;
+    top: 15px;
+}
+
+.opening-statement {
+    background-color: black;
+    background-image: radial-gradient(rgb(112, 112, 112), black);
+    padding-top: 150px;
+    text-align: center;
+}
+
+.opening-statement * {
+    background: none;
+    font-family: "American Typewriter", serif;
+    padding: 5px;
+}
+
+h1 {
+    font-size: 40px;
+    background: none;
+    text-align: center;
+}
+
+.home-nav {
+    text-align: right;
+}
+
+.home-nav a {
+    margin: 5px;
+}
+
+.non-hb {
+    display: none;
+}
+
+.home-nav a img {
+    margin: 0 0 0 40px;
+    width: 30px;
+}
+
+#white-x-img {
+    display: none;
+}
+
 .home-body {
-    margin: 10px;
-    padding: 10px 0;
+    margin: 20px;
 }
 
 .home-left {
@@ -34,6 +89,7 @@
 }
 
 .home-links a button {
+    background-image: radial-gradient(rgb(112, 112, 112), black);
     font-size: 16px;
     margin: 20px;
     padding: 10px;
@@ -56,17 +112,23 @@
     color: rgb(50, 50, 50);
 }
 
-h1, h4 {
+h4 {
     text-align: center;
 }
 
 @media screen and (min-width: 600px) {
+    .title img {height: 180px;}
+    .title h1 {font-size: 50px; left: 15%; top: 40px;}
+    .home-nav a img {width: 50px;}
+    .home-nav a {margin: 20px;}
     body {font-size: 30px;}
     .headshot {width: 300px;}
     .home-links a button {font-size: 24px; width: 250px;}
 }
 
 @media screen and (min-width: 1200px) {
+    .home-nav a {margin: 40px;}
+    .title h1 {font-size: 50px; left: 20%; top: 40px;}
     .home-body {display: flex;}
     .home-left p {font-size: 20px;}
     .home-right {margin-top: 120px;}

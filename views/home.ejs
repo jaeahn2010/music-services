@@ -7,11 +7,24 @@
 </head>
 
 <body>
-    <h1>Greater Las Vegas Music Services</h1>
+    <div class="title">
+        <img src="assets/keyboard.png">
+        <h1>Greater Las Vegas Music Services</h1>
+    </div>
+    <div class="opening-statement">
+        <h3>Musically serving the Las Vegas valley since 2010</h3>
+        <p>&#40 901 clients and counting &#41</p>
+        <nav class="home-nav">
+            <a href="/about" class="non-hb">About</a>
+            <a href="/opuses" class="non-hb">Repertoire List</a>
+            <a href="/client-requests" class="non-hb">My Requests</a>
+            <a href="#" id="hamburger"><img src="/assets/hamburger-menu.png" id="hamburger-img"><img src="/assets/white-x.png" id="white-x-img"></a>
+        </nav>
+    </div>
     <main>
         <section class="home-body">
             <div class="home-left">
-                <img class="headshot" src="/assets/headshot.png" alt="headshot"> <!--upload headshot here-->
+                <img class="headshot" id="headshot" src="/assets/headshot.png" alt="headshot">
                 <p>Jae Ahn-Benton, pianist & composer</p>
             </div>
             <div class="home-right">
@@ -27,6 +40,30 @@
         </section>
     </main>
     <h4>&copy; 2024 Greater Las Vegas Music Services</h4>
+    <script defer>
+        let hamburger = document.getElementById('hamburger');
+        let nonHb = document.getElementsByClassName('non-hb');
+        let hamburgerImg = document.getElementById('hamburger-img');
+        let whiteXImg = document.getElementById('white-x-img');
+        hamburger.addEventListener('click', () => {
+            if (whiteXImg.style.display !== 'inline') {
+                whiteXImg.style.display = 'inline';
+                hamburgerImg.style.display = 'none';
+            } else {
+                whiteXImg.style.display = 'none';
+                hamburgerImg.style.display = 'inline';
+            }
+            for (elem of nonHb) {
+                console.log(elem.style.display);
+                if (elem.style.display !== 'inline') {
+                    elem.style.display = 'inline';
+                } else if (elem.style.display === 'inline') {
+                    elem.style.display = 'none';
+                    // headshot.src = '/assets/hamburger-menu.png';
+                }
+            }
+        });
+    </script>
 </body>
     
 </html>

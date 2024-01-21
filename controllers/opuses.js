@@ -184,6 +184,12 @@ router.post('/', (req, res) => {
 router.get('/:id/edit', (req, res) => {
     db.Opus.findById(req.params.id)
         .then(opus => {
+            let tempArr = opus.title.split(' ');
+            let newStr = ''
+            for (item of tempArr) {
+                newStr += item + '-';
+            }
+            opus["title"] = newStr; //need this because otherwise, all chars after whitespace not passed to edit page
             res.render('opuses/opus-edit', { opus: opus })
         })
 })
@@ -193,6 +199,7 @@ router.put('/:id', (req, res) => {
     if (req.body.movements !== undefined) {
         let newMvmtObj = {movementTitle: '', movementPrice: 0};
         let mvmtArr = [];
+        //below poss happening when only one movement?
         for (let i = 0; i < req.body.movements.movementTitle.length; i++) {
             newMvmtObj.movementTitle = req.body.movements.movementTitle[i];
             newMvmtObj.movementPrice = req.body.movements.movementPrice[i];
@@ -200,6 +207,12 @@ router.put('/:id', (req, res) => {
             mvmtArr.push(tempCopy);
         }
         req.body.movements = mvmtArr;
+        let tempArr = req.body.title.split('-');
+        let newStr = '';
+        for (item of tempArr) {
+            newStr += item + ' ';
+        }//undo '-' from above
+        req.body["title"] = newStr;
     }
     db.Opus.findByIdAndUpdate(req.params.id, req.body, { new: true })
         .then(opus => res.redirect('/opuses/' + opus._id))
