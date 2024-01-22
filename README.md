@@ -2,7 +2,8 @@
 
 # How to navigate this website
 
-Please click the image below to be redirected to the site.
+Please click the link below to be redirected to the site.
+[Greater Las Vegas Music Services (GLVMS)](https://glv-music-services-9d9878ce0c35.herokuapp.com/)
 ![screenshot of main page](README-screenshots/ss-embed.png)
 
 ## List of technologies used
